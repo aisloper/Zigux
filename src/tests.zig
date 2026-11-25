@@ -31,6 +31,10 @@ comptime {
     _ = @import("rx_mode.zig");
     _ = @import("usb_hotplug.zig");
     _ = @import("ncq.zig");
+    _ = @import("drm.zig");
+    _ = @import("igmp.zig");
+    _ = @import("ip_defrag.zig");
+    _ = @import("unix_sock.zig");
     _ = @import("net.zig");
     _ = @import("tcp.zig");
     _ = @import("tcp_ca.zig");

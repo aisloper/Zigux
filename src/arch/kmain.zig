@@ -446,6 +446,64 @@ pub fn kmain() noreturn {
         if (!probe.cap or !probe.fis or !probe.queue or !probe.completion)
             printk.panic("ncq probe failed");
     }
+    if (build_options.drm_probe) {
+        const probe = kl.drm.probe();
+        printk.print("ziglinux: drm: {s} basic={s} size={s} refresh={s} framebuffer={s} crtc={s} errno={d}\n", .{
+            probe.status,
+            if (probe.basic) "ok" else "failed",
+            if (probe.size) "ok" else "failed",
+            if (probe.refresh) "ok" else "failed",
+            if (probe.framebuffer) "ok" else "failed",
+            if (probe.crtc) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.basic or !probe.size or !probe.refresh or !probe.framebuffer or !probe.crtc)
+            printk.panic("drm probe failed");
+    }
+    if (build_options.igmp_probe) {
+        const probe = kl.igmp.probe(heap.allocator()) catch {
+            printk.panic("igmp probe failed");
+        };
+        printk.print("ziglinux: igmp: {s} encoding={s} message={s} membership={s} query={s} leave={s} errno={d}\n", .{
+            probe.status,
+            if (probe.encoding) "ok" else "failed",
+            if (probe.message) "ok" else "failed",
+            if (probe.membership) "ok" else "failed",
+            if (probe.query) "ok" else "failed",
+            if (probe.leave) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.encoding or !probe.message or !probe.membership or
+            !probe.query or !probe.leave)
+            printk.panic("igmp probe failed");
+    }
+    if (build_options.ip_defrag_probe) {
+        const probe = kl.ip_defrag.probe();
+        printk.print("ziglinux: ipdefrag: {s} offsets={s} reorder={s} limits={s} timeout={s} errno={d}\n", .{
+            probe.status,
+            if (probe.offsets) "ok" else "failed",
+            if (probe.reorder) "ok" else "failed",
+            if (probe.limits) "ok" else "failed",
+            if (probe.timeout) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.offsets or !probe.reorder or !probe.limits or !probe.timeout)
+            printk.panic("ip defrag probe failed");
+    }
+    if (build_options.unix_sock_probe) {
+        const probe = kl.unix_sock.probe();
+        printk.print("ziglinux: unixsock: {s} names={s} pair={s} bind={s} datagram={s} close={s} errno={d}\n", .{
+            probe.status,
+            if (probe.names) "ok" else "failed",
+            if (probe.pair) "ok" else "failed",
+            if (probe.bind) "ok" else "failed",
+            if (probe.datagram) "ok" else "failed",
+            if (probe.close) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.names or !probe.pair or !probe.bind or !probe.datagram or !probe.close)
+            printk.panic("unix socket probe failed");
+    }
     if (build_options.inet6_probe) {
         const probe = kl.net.probeInet6(heap.allocator()) catch {
             printk.panic("inet6 probe failed");

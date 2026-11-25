@@ -135,6 +135,26 @@ pub fn build(b: *std.Build) void {
         "ncq-probe",
         "Exercise AHCI NCQ capability, FPDMA FIS, SActive and CI",
     ) orelse false;
+    const drm_probe = b.option(
+        bool,
+        "drm-probe",
+        "Exercise DRM mode validation, vrefresh, framebuffer and page flip",
+    ) orelse false;
+    const igmp_probe = b.option(
+        bool,
+        "igmp-probe",
+        "Exercise IGMPv3 encoding, query, report and leave",
+    ) orelse false;
+    const ip_defrag_probe = b.option(
+        bool,
+        "ip-defrag-probe",
+        "Exercise IPv4 fragment queue, reassembly and expiry",
+    ) orelse false;
+    const unix_sock_probe = b.option(
+        bool,
+        "unix-sock-probe",
+        "Exercise AF_UNIX names, socketpair, bind, datagrams and close",
+    ) orelse false;
     const options = b.addOptions();
     options.addOption(bool, "fs_write_probe", fs_write_probe);
     options.addOption(bool, "fs_grow_probe", fs_grow_probe);
@@ -162,6 +182,10 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "rx_mode_probe", rx_mode_probe);
     options.addOption(bool, "usb_hotplug_probe", usb_hotplug_probe);
     options.addOption(bool, "ncq_probe", ncq_probe);
+    options.addOption(bool, "drm_probe", drm_probe);
+    options.addOption(bool, "igmp_probe", igmp_probe);
+    options.addOption(bool, "ip_defrag_probe", ip_defrag_probe);
+    options.addOption(bool, "unix_sock_probe", unix_sock_probe);
 
     const lib = b.addLibrary(.{
         .name = "ziglinux",
