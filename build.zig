@@ -160,11 +160,6 @@ pub fn build(b: *std.Build) void {
         "ipv6-frag-probe",
         "Exercise IPv6 fragment header, queue, reassembly and expiry",
     ) orelse false;
-    const netlink_probe = b.option(
-        bool,
-        "netlink-probe",
-        "Exercise netlink headers, attributes, receive dispatch and groups",
-    ) orelse false;
     const options = b.addOptions();
     options.addOption(bool, "fs_write_probe", fs_write_probe);
     options.addOption(bool, "fs_grow_probe", fs_grow_probe);
@@ -197,7 +192,6 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "ip_defrag_probe", ip_defrag_probe);
     options.addOption(bool, "unix_sock_probe", unix_sock_probe);
     options.addOption(bool, "ipv6_frag_probe", ipv6_frag_probe);
-    options.addOption(bool, "netlink_probe", netlink_probe);
 
     const lib = b.addLibrary(.{
         .name = "ziglinux",
