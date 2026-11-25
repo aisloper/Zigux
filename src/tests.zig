@@ -36,6 +36,7 @@ comptime {
     _ = @import("ip_defrag.zig");
     _ = @import("unix_sock.zig");
     _ = @import("ipv6_frag.zig");
+    _ = @import("netlink.zig");
     _ = @import("net.zig");
     _ = @import("tcp.zig");
     _ = @import("tcp_ca.zig");
