@@ -518,6 +518,20 @@ pub fn kmain() noreturn {
         if (!probe.header or !probe.offsets or !probe.reorder or !probe.limits or !probe.timeout)
             printk.panic("ipv6 fragment probe failed");
     }
+    if (build_options.netlink_probe) {
+        const probe = kl.netlink.probe();
+        printk.print("ziglinux: netlink: {s} header={s} messages={s} attrs={s} dispatch={s} socket={s} errno={d}\n", .{
+            probe.status,
+            if (probe.header) "ok" else "failed",
+            if (probe.messages) "ok" else "failed",
+            if (probe.attrs) "ok" else "failed",
+            if (probe.dispatch) "ok" else "failed",
+            if (probe.socket) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.header or !probe.messages or !probe.attrs or !probe.dispatch or !probe.socket)
+            printk.panic("netlink probe failed");
+    }
     if (build_options.inet6_probe) {
         const probe = kl.net.probeInet6(heap.allocator()) catch {
             printk.panic("inet6 probe failed");
