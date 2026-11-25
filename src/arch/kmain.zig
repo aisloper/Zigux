@@ -546,6 +546,20 @@ pub fn kmain() noreturn {
         if (!probe.hierarchy or !probe.controllers or !probe.attach or !probe.limits or !probe.rmdir)
             printk.panic("cgroup probe failed");
     }
+    if (build_options.cubic_probe) {
+        const probe = kl.cubic.probe();
+        printk.print("ziglinux: cubic: {s} root={s} ssthresh={s} update={s} growth={s} hystart={s} errno={d}\n", .{
+            probe.status,
+            if (probe.root) "ok" else "failed",
+            if (probe.ssthresh) "ok" else "failed",
+            if (probe.update) "ok" else "failed",
+            if (probe.growth) "ok" else "failed",
+            if (probe.hystart) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.root or !probe.ssthresh or !probe.update or !probe.growth or !probe.hystart)
+            printk.panic("cubic probe failed");
+    }
     if (build_options.inet6_probe) {
         const probe = kl.net.probeInet6(heap.allocator()) catch {
             printk.panic("inet6 probe failed");

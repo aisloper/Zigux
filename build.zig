@@ -170,6 +170,11 @@ pub fn build(b: *std.Build) void {
         "cgroup-probe",
         "Exercise cgroup v2 hierarchy, controllers, tasks and limits",
     ) orelse false;
+    const cubic_probe = b.option(
+        bool,
+        "cubic-probe",
+        "Exercise CUBIC congestion control, slow start and HyStart",
+    ) orelse false;
     const options = b.addOptions();
     options.addOption(bool, "fs_write_probe", fs_write_probe);
     options.addOption(bool, "fs_grow_probe", fs_grow_probe);
@@ -204,6 +209,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "ipv6_frag_probe", ipv6_frag_probe);
     options.addOption(bool, "netlink_probe", netlink_probe);
     options.addOption(bool, "cgroup_probe", cgroup_probe);
+    options.addOption(bool, "cubic_probe", cubic_probe);
 
     const lib = b.addLibrary(.{
         .name = "ziglinux",
