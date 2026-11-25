@@ -155,6 +155,11 @@ pub fn build(b: *std.Build) void {
         "unix-sock-probe",
         "Exercise AF_UNIX names, socketpair, bind, datagrams and close",
     ) orelse false;
+    const ipv6_frag_probe = b.option(
+        bool,
+        "ipv6-frag-probe",
+        "Exercise IPv6 fragment header, queue, reassembly and expiry",
+    ) orelse false;
     const options = b.addOptions();
     options.addOption(bool, "fs_write_probe", fs_write_probe);
     options.addOption(bool, "fs_grow_probe", fs_grow_probe);
@@ -186,6 +191,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "igmp_probe", igmp_probe);
     options.addOption(bool, "ip_defrag_probe", ip_defrag_probe);
     options.addOption(bool, "unix_sock_probe", unix_sock_probe);
+    options.addOption(bool, "ipv6_frag_probe", ipv6_frag_probe);
 
     const lib = b.addLibrary(.{
         .name = "ziglinux",

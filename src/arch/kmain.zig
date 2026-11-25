@@ -504,6 +504,20 @@ pub fn kmain() noreturn {
         if (!probe.names or !probe.pair or !probe.bind or !probe.datagram or !probe.close)
             printk.panic("unix socket probe failed");
     }
+    if (build_options.ipv6_frag_probe) {
+        const probe = kl.ipv6_frag.probe();
+        printk.print("ziglinux: ipv6frag: {s} header={s} offsets={s} reorder={s} limits={s} timeout={s} errno={d}\n", .{
+            probe.status,
+            if (probe.header) "ok" else "failed",
+            if (probe.offsets) "ok" else "failed",
+            if (probe.reorder) "ok" else "failed",
+            if (probe.limits) "ok" else "failed",
+            if (probe.timeout) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.header or !probe.offsets or !probe.reorder or !probe.limits or !probe.timeout)
+            printk.panic("ipv6 fragment probe failed");
+    }
     if (build_options.inet6_probe) {
         const probe = kl.net.probeInet6(heap.allocator()) catch {
             printk.panic("inet6 probe failed");
