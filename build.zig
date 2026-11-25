@@ -165,6 +165,11 @@ pub fn build(b: *std.Build) void {
         "netlink-probe",
         "Exercise netlink headers, attributes, receive dispatch and groups",
     ) orelse false;
+    const cgroup_probe = b.option(
+        bool,
+        "cgroup-probe",
+        "Exercise cgroup v2 hierarchy, controllers, tasks and limits",
+    ) orelse false;
     const options = b.addOptions();
     options.addOption(bool, "fs_write_probe", fs_write_probe);
     options.addOption(bool, "fs_grow_probe", fs_grow_probe);
@@ -198,6 +203,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "unix_sock_probe", unix_sock_probe);
     options.addOption(bool, "ipv6_frag_probe", ipv6_frag_probe);
     options.addOption(bool, "netlink_probe", netlink_probe);
+    options.addOption(bool, "cgroup_probe", cgroup_probe);
 
     const lib = b.addLibrary(.{
         .name = "ziglinux",

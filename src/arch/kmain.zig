@@ -532,6 +532,20 @@ pub fn kmain() noreturn {
         if (!probe.header or !probe.messages or !probe.attrs or !probe.dispatch or !probe.socket)
             printk.panic("netlink probe failed");
     }
+    if (build_options.cgroup_probe) {
+        const probe = kl.cgroup.probe();
+        printk.print("ziglinux: cgroup: {s} hierarchy={s} controllers={s} attach={s} limits={s} rmdir={s} errno={d}\n", .{
+            probe.status,
+            if (probe.hierarchy) "ok" else "failed",
+            if (probe.controllers) "ok" else "failed",
+            if (probe.attach) "ok" else "failed",
+            if (probe.limits) "ok" else "failed",
+            if (probe.rmdir) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.hierarchy or !probe.controllers or !probe.attach or !probe.limits or !probe.rmdir)
+            printk.panic("cgroup probe failed");
+    }
     if (build_options.inet6_probe) {
         const probe = kl.net.probeInet6(heap.allocator()) catch {
             printk.panic("inet6 probe failed");
