@@ -595,8 +595,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `ziglinux: cgroup: ok hierarchy=ok controllers=ok attach=ok limits=ok
     rmdir=ok errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы 280/280
     (235/235 host-тестов).
-52. **Блоки/драйверы:** каскадные внешние хабы xHCI и DRM-драйверы GPU; split
-    выше depth 2 не реализован.
+52. **Блоки/драйверы:** DRM-драйверы GPU; split выше depth 2 не реализован.
 53. **Этап 52 (готово):** TCP CUBIC. `src/cubic.zig` переносит целочисленный
     `cubic_root()`, `bictcp_update()` с CUBIC-функцией и TCP-дружелюбием,
     `cubictcp_recalc_ssthresh()` с beta=717/1024 и fast convergence, slow
@@ -611,12 +610,21 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     wake_queue. Boot-проба `-De1000-probe=true` печатает
     `ziglinux: e1000: ok ring=ok tx=ok rx=ok csum=ok napi=ok errno=0`; матрица
     0.63.0 — загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
-55. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
+55. **Этап 54 (готово):** каскад внешних xHCI-хабов. `src/xhci_hub_cascade.zig`
+    переносит разбор HS/SS-дескрипторов хаба, TT по `bDeviceProtocol` и
+    `HUB_CHAR_TTTT`, кодирование `DEV_HUB`/`DEV_MTT`/`TT_THINK_TIME`, маршрутную
+    строку с ограничением порта 15, `HUB_SET_DEPTH`, подъём по каскаду к корневому
+    порту, накопление задержки и worst-case проверку полосы периодических
+    endpoints. Boot-проба `-Dxhci-cascade-probe=true` печатает
+    `ziglinux: xhci-cascade: ok descriptor=ok depth=ok tt=ok cascade=ok
+    bandwidth=ok errno=0`; матрица 0.64.0 — загрузка 9/9 и пробы 288/288
+    (244/244 host-тестов).
+56. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
     window scale, SACK, RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6,
     дефрагментация IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast,
     pfifo_fast, NAPI, fq_codel, HTB и полные TCP-таймеры уже работают; остаются
     другие NIC и реальная сеть за пределами QEMU user net.
-56. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
+57. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
     systemd-заглушки (AF_UNIX) по `zigos/docs/systemd.md`.
 
 Каждый этап должен сохранять `zig build test` зелёным и добавлять новые

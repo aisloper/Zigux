@@ -30,6 +30,7 @@ comptime {
     _ = @import("tcp_v6.zig");
     _ = @import("rx_mode.zig");
     _ = @import("usb_hotplug.zig");
+    _ = @import("xhci_hub_cascade.zig");
     _ = @import("ncq.zig");
     _ = @import("drm.zig");
     _ = @import("igmp.zig");

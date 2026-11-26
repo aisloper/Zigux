@@ -433,6 +433,20 @@ pub fn kmain() noreturn {
         if (!probe.decode or !probe.attach or !probe.detach or !probe.reset or !probe.reuse)
             printk.panic("usb hotplug probe failed");
     }
+    if (build_options.xhci_cascade_probe) {
+        const probe = kl.xhci_hub_cascade.probe();
+        printk.print("ziglinux: xhci-cascade: {s} descriptor={s} depth={s} tt={s} cascade={s} bandwidth={s} errno={d}\n", .{
+            probe.status,
+            if (probe.descriptor) "ok" else "failed",
+            if (probe.depth) "ok" else "failed",
+            if (probe.tt) "ok" else "failed",
+            if (probe.cascade) "ok" else "failed",
+            if (probe.bandwidth) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.descriptor or !probe.depth or !probe.tt or !probe.cascade or !probe.bandwidth)
+            printk.panic("xhci cascade probe failed");
+    }
     if (build_options.ncq_probe) {
         const probe = kl.ncq.probe();
         printk.print("ziglinux: ncq: {s} cap={s} fis={s} queue={s} completion={s} errno={d}\n", .{

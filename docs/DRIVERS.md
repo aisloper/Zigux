@@ -447,10 +447,17 @@ framebuffer) и `serial.puts()`. `printk` по-прежнему пишет то�
     csum=ok napi=ok errno=0`. Матрица 0.63.0: загрузка 9/9 и пробы 280/280
     (235/235 host-тестов).
 
+47. Срез 0.64.0: `src/xhci_hub_cascade.zig` переносит каскад внешних хабов
+    xHCI: дескрипторы HS/SS, TT single/multi и think time, разряды
+    `DEV_HUB`/`DEV_MTT`/`TT_THINK_TIME`, маршрутную строку, `HUB_SET_DEPTH`,
+    выбор корневого порта, задержку каскада и проверку полосы. Boot-проба
+    `-Dxhci-cascade-probe=true` печатает `ziglinux: xhci-cascade: ok
+    descriptor=ok depth=ok tt=ok cascade=ok bandwidth=ok errno=0`. Матрица
+    0.64.0: загрузка 9/9 и пробы 288/288 (244/244 host-тестов).
+
 ## Что осталось подключить
 
-1. Каскадные внешние хабы xHCI (базовый hotplug корневого хаба уже
-   реализован), DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent
+1. DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent
    tree — без split выше depth 2
    (creat/unlink, mkdir/rmdir, JBD2 с revoke/checksum/64-bit/wrap, split depth
    0→1 и 1→2, разреженная запись и работа через все четыре блочных драйвера

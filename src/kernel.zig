@@ -2,7 +2,7 @@
 //! Библиотека без libc: подсистемы тестируются host-ом и подключены к UEFI-входу.
 pub const version_major: u32 = 7;
 pub const version_minor: u32 = 3;
-pub const port_version: []const u8 = "0.63.0";
+pub const port_version: []const u8 = "0.64.0";
 
 pub const list = @import("list.zig");
 pub const rbtree = @import("rbtree.zig");
@@ -28,6 +28,7 @@ pub const mld = @import("mld.zig");
 pub const tcp_v6 = @import("tcp_v6.zig");
 pub const rx_mode = @import("rx_mode.zig");
 pub const usb_hotplug = @import("usb_hotplug.zig");
+pub const xhci_hub_cascade = @import("xhci_hub_cascade.zig");
 pub const ncq = @import("ncq.zig");
 pub const drm = @import("drm.zig");
 pub const igmp = @import("igmp.zig");
