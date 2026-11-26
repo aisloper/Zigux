@@ -469,6 +469,12 @@ framebuffer) и `serial.puts()`. `printk` по-прежнему пишет то�
     init=ok tx=ok rx=ok irq=ok errno=0`. Матрица 0.66.0: загрузка 9/9 и пробы
     304/304 (261/261 host-тестов).
 
+50. Срез 0.67.0: `src/rtl8139.zig` переносит RTL8139 (8139too): gating
+    8139C+, ревизия чипа, TxConfig/RxConfig, TX/RX кольца, wraparound RX,
+    ISR pending/ack и multicast hash filter. Boot-проба `-Drtl8139-probe=true`
+    печатает `ziglinux: rtl8139: ok probe=ok mac=ok tx=ok rx=ok irq=ok mcast=ok
+    errno=0`. Матрица 0.67.0: загрузка 9/9 и пробы 312/312 (269/269 host-тестов).
+
 ## Что осталось подключить
 
 1. DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent

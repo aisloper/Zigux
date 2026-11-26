@@ -462,6 +462,21 @@ pub fn kmain() noreturn {
         if (!probe.probe or !probe.ring or !probe.mac or !probe.tx or !probe.rx or !probe.irq)
             printk.panic("pcnet32 probe failed");
     }
+    if (build_options.rtl8139_probe) {
+        const probe = kl.rtl8139.probe();
+        printk.print("ziglinux: rtl8139: {s} probe={s} mac={s} tx={s} rx={s} irq={s} mcast={s} errno={d}\n", .{
+            probe.status,
+            if (probe.probe) "ok" else "failed",
+            if (probe.mac) "ok" else "failed",
+            if (probe.tx) "ok" else "failed",
+            if (probe.rx) "ok" else "failed",
+            if (probe.irq) "ok" else "failed",
+            if (probe.mcast) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.probe or !probe.mac or !probe.tx or !probe.rx or !probe.irq or !probe.mcast)
+            printk.panic("rtl8139 probe failed");
+    }
     if (build_options.ne2k_probe) {
         const probe = kl.ne2k.probe();
         printk.print("ziglinux: ne2k: {s} probe={s} mac={s} init={s} tx={s} rx={s} irq={s} errno={d}\n", .{

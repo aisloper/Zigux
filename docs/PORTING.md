@@ -633,12 +633,18 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     Boot-проба `-Dne2k-probe=true` печатает `ziglinux: ne2k: ok probe=ok mac=ok
     init=ok tx=ok rx=ok irq=ok errno=0`; матрица 0.66.0 — загрузка 9/9 и пробы
     304/304 (261/261 host-тестов).
-58. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
+58. **Этап 57 (готово):** Realtek RTL8139 (8139too). `src/rtl8139.zig` переносит
+    проверку PCI-ревизии/8139C+ gating, decode ревизии чипа, конфигурацию
+    TxConfig/RxConfig, кольца TX/RX с wraparound-копированием, ISR pending/ack
+    и multicast hash filter MAR. Boot-проба `-Drtl8139-probe=true` печатает
+    `ziglinux: rtl8139: ok probe=ok mac=ok tx=ok rx=ok irq=ok mcast=ok errno=0`;
+    матрица 0.67.0 — загрузка 9/9 и пробы 312/312 (269/269 host-тестов).
+59. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
     window scale, SACK, RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6,
     дефрагментация IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast,
     pfifo_fast, NAPI, fq_codel, HTB и полные TCP-таймеры уже работают; остаются
     другие NIC и реальная сеть за пределами QEMU user net.
-59. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
+60. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
     systemd-заглушки (AF_UNIX) по `zigos/docs/systemd.md`.
 
 Каждый этап должен сохранять `zig build test` зелёным и добавлять новые

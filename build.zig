@@ -140,6 +140,11 @@ pub fn build(b: *std.Build) void {
         "pcnet32-probe",
         "Exercise AMD PCnet32 CSR access, ring, MAC, TX/RX and IRQ masking",
     ) orelse false;
+    const rtl8139_probe = b.option(
+        bool,
+        "rtl8139-probe",
+        "Exercise RTL8139 reset, TX/RX rings, ISR and multicast filter",
+    ) orelse false;
     const ne2k_probe = b.option(
         bool,
         "ne2k-probe",
@@ -224,6 +229,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "xhci_cascade_probe", xhci_cascade_probe);
     options.addOption(bool, "pcnet32_probe", pcnet32_probe);
     options.addOption(bool, "ne2k_probe", ne2k_probe);
+    options.addOption(bool, "rtl8139_probe", rtl8139_probe);
     options.addOption(bool, "ncq_probe", ncq_probe);
     options.addOption(bool, "drm_probe", drm_probe);
     options.addOption(bool, "igmp_probe", igmp_probe);

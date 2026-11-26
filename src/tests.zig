@@ -33,6 +33,7 @@ comptime {
     _ = @import("xhci_hub_cascade.zig");
     _ = @import("pcnet32.zig");
     _ = @import("ne2k.zig");
+    _ = @import("rtl8139.zig");
     _ = @import("ncq.zig");
     _ = @import("drm.zig");
     _ = @import("igmp.zig");
