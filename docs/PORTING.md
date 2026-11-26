@@ -639,12 +639,18 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     и multicast hash filter MAR. Boot-проба `-Drtl8139-probe=true` печатает
     `ziglinux: rtl8139: ok probe=ok mac=ok tx=ok rx=ok irq=ok mcast=ok errno=0`;
     матрица 0.67.0 — загрузка 9/9 и пробы 312/312 (269/269 host-тестов).
-59. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
+59. **Этап 58 (готово):** Intel PRO/100 (e100). `src/e100.zig` переносит
+    CSR/SCB, CU submit/S-bit/complete, RU indicate/EL/RNR restart, EEPROM
+    checksum/read, IRQ ack/mask и базовые configure defaults. Boot-проба
+    `-De100-probe=true` печатает `ziglinux: e100: ok probe=ok mac=ok cu=ok ru=ok
+    irq=ok eeprom=ok errno=0`; матрица 0.68.0 — загрузка 9/9 и пробы 320/320
+    (277/277 host-тестов).
+60. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
     window scale, SACK, RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6,
     дефрагментация IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast,
     pfifo_fast, NAPI, fq_codel, HTB и полные TCP-таймеры уже работают; остаются
     другие NIC и реальная сеть за пределами QEMU user net.
-60. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
+61. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
     systemd-заглушки (AF_UNIX) по `zigos/docs/systemd.md`.
 
 Каждый этап должен сохранять `zig build test` зелёным и добавлять новые

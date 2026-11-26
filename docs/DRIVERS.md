@@ -475,6 +475,12 @@ framebuffer) и `serial.puts()`. `printk` по-прежнему пишет то�
     печатает `ziglinux: rtl8139: ok probe=ok mac=ok tx=ok rx=ok irq=ok mcast=ok
     errno=0`. Матрица 0.67.0: загрузка 9/9 и пробы 312/312 (269/269 host-тестов).
 
+51. Срез 0.68.0: `src/e100.zig` переносит Intel PRO/100 (e100): CSR/SCB,
+    CU/RU кольца, CB/RFD форматы, EEPROM checksum, IRQ ack/mask и configure
+    defaults. Boot-проба `-De100-probe=true` печатает `ziglinux: e100: ok
+    probe=ok mac=ok cu=ok ru=ok irq=ok eeprom=ok errno=0`. Матрица 0.68.0:
+    загрузка 9/9 и пробы 320/320 (277/277 host-тестов).
+
 ## Что осталось подключить
 
 1. DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent
