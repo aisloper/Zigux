@@ -175,6 +175,11 @@ pub fn build(b: *std.Build) void {
         "cubic-probe",
         "Exercise CUBIC congestion control, slow start and HyStart",
     ) orelse false;
+    const e1000_probe = b.option(
+        bool,
+        "e1000-probe",
+        "Exercise Intel PRO/1000 TX/RX rings, checksum and NAPI",
+    ) orelse false;
     const options = b.addOptions();
     options.addOption(bool, "fs_write_probe", fs_write_probe);
     options.addOption(bool, "fs_grow_probe", fs_grow_probe);
@@ -210,6 +215,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "netlink_probe", netlink_probe);
     options.addOption(bool, "cgroup_probe", cgroup_probe);
     options.addOption(bool, "cubic_probe", cubic_probe);
+    options.addOption(bool, "e1000_probe", e1000_probe);
 
     const lib = b.addLibrary(.{
         .name = "ziglinux",

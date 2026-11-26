@@ -58,7 +58,7 @@ open/write/lseek/read/close + mmap/mprotect/munmap через `struct file`/`mm_
 `zig build efi` даёт PE32+ EFI-приложение. `zig build qemu` грузит его через OVMF
 с `-smp 2` и выводит serial console: `start_kernel`, 4 VT, `SYSCALL/SYSRET ready`,
 `SMP: 2 CPUs from MADT`, `CPU1 online (lapic 1)`, `5 tasks, per-CPU EEVDF runqueues
-active`, `tty1..tty4 ready`, `vt: 4 VTs, active=tty1, switches=4`; с `-Dfs-write-probe=true` дополнительно печатается `ext4 write: ok readback=ok bytes=11 dirty=0 synced=8`, а с `-Dfs-grow-probe=true` — `ext4 grow: ok readback=ok bytes=1100 size=1116 free=2732 dirty=0 synced=18`; с `-Dfs-namei-probe=true` — `ext4 namei: creat=ok unlink=ok readback=ok dirty=0 synced=18 errno=0`; с `-Dfs-mkdir-probe=true` — `ext4 mkdir: mkdir=ok create=ok readback=ok unlink=ok dirty=0 synced=18 errno=0`; с `-Dfs-rmdir-probe=true` — `ext4 rmdir: mkdir=ok nested=ok rmdir=ok dirty=0 synced=22 errno=0`; с `-Dfs-journal-probe=true` — `ext4 journal: active=ok readback=ok commits=1 replays=0 start=0 dirty=0 synced=8 errno=0`; с `-Dfs-split-probe=true` — `ext4 split: depth=1 readback=ok bytes=5120 size=5136 free=2727 dirty=0 synced=28 errno=0`; с `-Dfs-sparse-probe=true` — `ext4 sparse: hole=ok readback=ok bytes=512 size=8704 entries=2 depth=0 free=2732 dirty=0 synced=16 errno=0`; с `-Dfs-depth2-probe=true` — `ext4 depth2: depth=2 entries=2 hole=ok readback=ok bytes=1024 size=345088 free=3742 dirty=0 synced=9 errno=0`; с `-Dnet-probe=true` — `net: ok skb=ok clone=ok csum=ok bind=ok loopback=ok recv=ok inuse=ok refused=ok bytes=10 queue=0 packets=1 drops=1 errno=0`, а с `-Dtcp-probe=true` — `tcp: ok checksum=ok handshake=ok stream=ok retransmit=ok close=ok bytes=10 segments=11 acks=4 state=CLOSE errno=0`, а с `-Dinet6-probe=true` — `inet6: ok addr=ok csum=ok bind=ok loopback=ok recv=ok inuse=ok refused=ok bytes=12 queue=0 packets=1 drops=1 errno=0`, а с `-Djbd2-probe=true` — `ziglinux: jbd2: active=ok features=ok csum=ok revoke=ok commit=ok readback=ok commits=1 replays=0 start=0 dirty=0 synced=9 errno=0`, а с `-Dnetdev-probe=true` — `ziglinux: netdev: ok device=ok route=ok arp=ok icmp=ok mac=525400123456 ifindex=1 prefix=24 tx=2 rx=2 errno=0`, а с `-Dtcp-ca-probe=true` — `ziglinux: tcp-ca: ok reno=ok slow-start=ok avoidance=ok ssthresh=ok fast-retransmit=ok recovery=ok timeout=ok cwnd=1 threshold=8 dupacks=0 state=Loss acks=10 errno=0`, а с `-Dtcp-options-probe=true` — `ziglinux: tcp-opt: ok window-scale=ok sack=ok ofo=ok backoff=ok shift=7 blocks=1 sacked=1 rto=200/400/800 errno=0`, а с `-Dicmp6-probe=true` — `ziglinux: icmp6: ok echo=ok checksum=ok ndp=ok multicast=ok state=Stale errno=0`, а с `-Dqueue-probe=true` — `ziglinux: queue: ok qdisc=ok priority=ok order=ok limit=ok napi=ok weight=ok schedule=ok budget=ok repoll=ok processed=24 errno=0`, а с `-Dfq-codel-probe=true` — `ziglinux: fqcodel: ok hash=ok rr=ok deficit=ok codel=ok ecn=ok overlimit=ok drops=2 marks=1 errno=0`, а с `-Dhtb-probe=true` — `ziglinux: htb: ok rate=ok ceil=ok borrow=ok prio=ok deficit=ok limit=ok errno=0`, а с `-Dtcp-timers-probe=true` — `ziglinux: tcptimers: ok retrans=ok backoff=ok probe0=ok delack=ok keepalive=ok user-timeout=ok errno=0`, а с `-Dmld-probe=true` — `ziglinux: mld: ok mld1=ok mld2=ok grec=ok mrc=ok qqic=ok ra=ok options=ok rs=ok errno=0`, а с `-Dtcpv6-probe=true` — `ziglinux: tcpv6: ok checksum=ok handshake=ok lookup=ok data=ok errno=0`, а с `-Drx-mode-probe=true` — `ziglinux: rxmode: ok promisc=ok allmulti=ok mc=ok virtio=ok filter=ok errno=0`, а с `-Dusb-hotplug-probe=true` — `ziglinux: usbhotplug: ok decode=ok attach=ok detach=ok reset=ok reuse=ok errno=0`, а с `-Dncq-probe=true` — `ziglinux: ncq: ok cap=ok fis=ok queue=ok completion=ok errno=0`, а с `-Ddrm-probe=true` — `ziglinux: drm: ok basic=ok size=ok refresh=ok framebuffer=ok crtc=ok errno=0`, а с `-Digmp-probe=true` — `ziglinux: igmp: ok encoding=ok message=ok membership=ok query=ok leave=ok errno=0`, а с `-Dip-defrag-probe=true` — `ziglinux: ipdefrag: ok offsets=ok reorder=ok limits=ok timeout=ok errno=0`, а с `-Dunix-sock-probe=true` — `ziglinux: unixsock: ok names=ok pair=ok bind=ok datagram=ok close=ok errno=0`, а с `-Dipv6-frag-probe=true` — `ziglinux: ipv6frag: ok header=ok offsets=ok reorder=ok limits=ok timeout=ok errno=0`, а с `-Dnetlink-probe=true` — `ziglinux: netlink: ok header=ok messages=ok attrs=ok dispatch=ok socket=ok errno=0`, а с `-Dcgroup-probe=true` — `ziglinux: cgroup: ok hierarchy=ok controllers=ok attach=ok limits=ok rmdir=ok errno=0`, а с `-Dcubic-probe=true` — `ziglinux: cubic: ok root=ok ssthresh=ok update=ok growth=ok hystart=ok errno=0`. Все тридцать четыре probe проверены для `-Ddisk-backend=virtio|nvme|ahci|scsi`; `e2fsck -fn` на scratch-разделе проходит чисто. Итоговая матрица 0.62.0: загрузка 9/9 (четыре backends × MBR/GPT и загрузка без USB), пробы 272/272 (тридцать четыре probe × четыре backends × MBR/GPT), `e2fsck -fn` = 0 на каждой scratch-копии, QEMU завершается по таймауту без failure-маркеров. На SMP `src/arch/printk.zig` сериализует вывод spinlock (аналог `console_lock`): без него строки CPU0 и CPU1 перемешивались внутри одного сообщения. Для depth2 в раздел 1 scratch-образа кладётся synthetic full-depth1 образ (4 leaf × 339 extent), а не checked-in фикстура. Загрузочный диск (8 МиБ, настоящий ext4 в разделе 1) подключён через
+active`, `tty1..tty4 ready`, `vt: 4 VTs, active=tty1, switches=4`; с `-Dfs-write-probe=true` дополнительно печатается `ext4 write: ok readback=ok bytes=11 dirty=0 synced=8`, а с `-Dfs-grow-probe=true` — `ext4 grow: ok readback=ok bytes=1100 size=1116 free=2732 dirty=0 synced=18`; с `-Dfs-namei-probe=true` — `ext4 namei: creat=ok unlink=ok readback=ok dirty=0 synced=18 errno=0`; с `-Dfs-mkdir-probe=true` — `ext4 mkdir: mkdir=ok create=ok readback=ok unlink=ok dirty=0 synced=18 errno=0`; с `-Dfs-rmdir-probe=true` — `ext4 rmdir: mkdir=ok nested=ok rmdir=ok dirty=0 synced=22 errno=0`; с `-Dfs-journal-probe=true` — `ext4 journal: active=ok readback=ok commits=1 replays=0 start=0 dirty=0 synced=8 errno=0`; с `-Dfs-split-probe=true` — `ext4 split: depth=1 readback=ok bytes=5120 size=5136 free=2727 dirty=0 synced=28 errno=0`; с `-Dfs-sparse-probe=true` — `ext4 sparse: hole=ok readback=ok bytes=512 size=8704 entries=2 depth=0 free=2732 dirty=0 synced=16 errno=0`; с `-Dfs-depth2-probe=true` — `ext4 depth2: depth=2 entries=2 hole=ok readback=ok bytes=1024 size=345088 free=3742 dirty=0 synced=9 errno=0`; с `-Dnet-probe=true` — `net: ok skb=ok clone=ok csum=ok bind=ok loopback=ok recv=ok inuse=ok refused=ok bytes=10 queue=0 packets=1 drops=1 errno=0`, а с `-Dtcp-probe=true` — `tcp: ok checksum=ok handshake=ok stream=ok retransmit=ok close=ok bytes=10 segments=11 acks=4 state=CLOSE errno=0`, а с `-Dinet6-probe=true` — `inet6: ok addr=ok csum=ok bind=ok loopback=ok recv=ok inuse=ok refused=ok bytes=12 queue=0 packets=1 drops=1 errno=0`, а с `-Djbd2-probe=true` — `ziglinux: jbd2: active=ok features=ok csum=ok revoke=ok commit=ok readback=ok commits=1 replays=0 start=0 dirty=0 synced=9 errno=0`, а с `-Dnetdev-probe=true` — `ziglinux: netdev: ok device=ok route=ok arp=ok icmp=ok mac=525400123456 ifindex=1 prefix=24 tx=2 rx=2 errno=0`, а с `-Dtcp-ca-probe=true` — `ziglinux: tcp-ca: ok reno=ok slow-start=ok avoidance=ok ssthresh=ok fast-retransmit=ok recovery=ok timeout=ok cwnd=1 threshold=8 dupacks=0 state=Loss acks=10 errno=0`, а с `-Dtcp-options-probe=true` — `ziglinux: tcp-opt: ok window-scale=ok sack=ok ofo=ok backoff=ok shift=7 blocks=1 sacked=1 rto=200/400/800 errno=0`, а с `-Dicmp6-probe=true` — `ziglinux: icmp6: ok echo=ok checksum=ok ndp=ok multicast=ok state=Stale errno=0`, а с `-Dqueue-probe=true` — `ziglinux: queue: ok qdisc=ok priority=ok order=ok limit=ok napi=ok weight=ok schedule=ok budget=ok repoll=ok processed=24 errno=0`, а с `-Dfq-codel-probe=true` — `ziglinux: fqcodel: ok hash=ok rr=ok deficit=ok codel=ok ecn=ok overlimit=ok drops=2 marks=1 errno=0`, а с `-Dhtb-probe=true` — `ziglinux: htb: ok rate=ok ceil=ok borrow=ok prio=ok deficit=ok limit=ok errno=0`, а с `-Dtcp-timers-probe=true` — `ziglinux: tcptimers: ok retrans=ok backoff=ok probe0=ok delack=ok keepalive=ok user-timeout=ok errno=0`, а с `-Dmld-probe=true` — `ziglinux: mld: ok mld1=ok mld2=ok grec=ok mrc=ok qqic=ok ra=ok options=ok rs=ok errno=0`, а с `-Dtcpv6-probe=true` — `ziglinux: tcpv6: ok checksum=ok handshake=ok lookup=ok data=ok errno=0`, а с `-Drx-mode-probe=true` — `ziglinux: rxmode: ok promisc=ok allmulti=ok mc=ok virtio=ok filter=ok errno=0`, а с `-Dusb-hotplug-probe=true` — `ziglinux: usbhotplug: ok decode=ok attach=ok detach=ok reset=ok reuse=ok errno=0`, а с `-Dncq-probe=true` — `ziglinux: ncq: ok cap=ok fis=ok queue=ok completion=ok errno=0`, а с `-Ddrm-probe=true` — `ziglinux: drm: ok basic=ok size=ok refresh=ok framebuffer=ok crtc=ok errno=0`, а с `-Digmp-probe=true` — `ziglinux: igmp: ok encoding=ok message=ok membership=ok query=ok leave=ok errno=0`, а с `-Dip-defrag-probe=true` — `ziglinux: ipdefrag: ok offsets=ok reorder=ok limits=ok timeout=ok errno=0`, а с `-Dunix-sock-probe=true` — `ziglinux: unixsock: ok names=ok pair=ok bind=ok datagram=ok close=ok errno=0`, а с `-Dipv6-frag-probe=true` — `ziglinux: ipv6frag: ok header=ok offsets=ok reorder=ok limits=ok timeout=ok errno=0`, а с `-Dnetlink-probe=true` — `ziglinux: netlink: ok header=ok messages=ok attrs=ok dispatch=ok socket=ok errno=0`, а с `-Dcgroup-probe=true` — `ziglinux: cgroup: ok hierarchy=ok controllers=ok attach=ok limits=ok rmdir=ok errno=0`, а с `-Dcubic-probe=true` — `ziglinux: cubic: ok root=ok ssthresh=ok update=ok growth=ok hystart=ok errno=0`, а с `-De1000-probe=true` — `ziglinux: e1000: ok ring=ok tx=ok rx=ok csum=ok napi=ok errno=0`. Все тридцать пять probe проверены для `-Ddisk-backend=virtio|nvme|ahci|scsi`; `e2fsck -fn` на scratch-разделе проходит чисто. Итоговая матрица 0.63.0: загрузка 9/9 (четыре backends × MBR/GPT и загрузка без USB), пробы 280/280 (тридцать пять probe × четыре backends × MBR/GPT), `e2fsck -fn` = 0 на каждой scratch-копии, QEMU завершается по таймауту без failure-маркеров. На SMP `src/arch/printk.zig` сериализует вывод spinlock (аналог `console_lock`): без него строки CPU0 и CPU1 перемешивались внутри одного сообщения. Для depth2 в раздел 1 scratch-образа кладётся synthetic full-depth1 образ (4 leaf × 339 extent), а не checked-in фикстура. Загрузочный диск (8 МиБ, настоящий ext4 в разделе 1) подключён через
 `-Ddisk-backend=virtio|nvme|ahci|scsi` и `-Dboot-disk=...`: serial показывает
 `virtio-blk/NVMe/AHCI/virtio-scsi 16384 sectors`, `{MBR,GPT} partition 1 ext4 mounted at
 /mnt`, `/mnt/hello.txt ino 13` и `block scan: PCI 5, ... ext4 mounts 1` без
@@ -73,7 +73,7 @@ file-backed `#PF` и печатают `FILE!`,
 затем `lseek`/`dup`/`read` через namei RamFs печатают `E!`; `munmap`/`close`
 освобождают отображение; `fork()` создаёт ребёнка с отдельным PML4, после
 COW-фолтов родитель печатает `P`, ребёнок — `C`. Без паник и исключений.
-Версия порта: 0.62.0.
+Версия порта: 0.63.0.
 
 ## Соответствие исходникам Linux 7.3
 
@@ -133,7 +133,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
 - slab: ctor вызывается один раз на объект при создании slab, freed-объект
   переиспользуется с сохранением данных;
 - EEVDF: за 2000 тиков задачи с nice -10/0/0/+10 получили CPU в отношении,
-  близком к весам 9548:1024:1024:110 (проверено вручную: 1631/229/229/19 мс);
+  близком к весам 9548:1024:1024:110 (проверено вручную: 1631/235/235/19 мс);
 - VFS: кеширование dentry, `.`/`..`, negative dentry, `ENOTDIR` на файле;
 - task: `fork()` c `CLONE_VM` разделяет mm (refcount=2), без флага — отдельные mm/files; `exit()` перевешивает детей (next сохраняется до `list_move_tail()`), не ломая sibling-список;
 - timer: `jiffies` стартует с INITIAL_JIFFIES, таймер через 8 мс срабатывает раньше таймера через 40 мс;
@@ -158,7 +158,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
 - ext4: синтетический образ с 1KiB-блоками, extent tree, root directory, regular file и fast symlink монтируется в `/mnt`; namei находит `/mnt/hello.txt`, `read()` возвращает данные через extent, `readlink()` даёт `hello.txt`, `statfs()` читает поля ext4 superblock; `ENOENT`/`ENOTDIR` проверены.
 - btrfs: синтетический образ 256 КиБ с двумя чанками (логические адреса 0x1000/0x3000/0x9000 отображаются в физические 0x21000/0x23000/0x31000), root tree уровня 1 → leaf, chunk tree и FS tree; тест проверяет `mapLogical()`, `statfs()` (`BTRFS_SUPER_MAGIC`, 64 блока, 3 инода), чтение `/mnt/hello.txt` через regular extent, `readlink()` через inline extent и `ENOENT`/`ENOTDIR`. Дополнительно вручную проверен настоящий образ `mkfs.btrfs` 128 МиБ: superblock, DUP-чанки, root tree и namei `/default` на subvolume `ROOT_ITEM`.
 - block device: тесты покрывают невыровненный read/write через 512-байтовые сектора, слияние соседних bio в `request_queue`, разбор MBR и трансляцию секторов раздела, а также сквозной путь «файл образа → MBR-раздел → `readAll()` → ext4/btrfs → VFS namei/read». Настоящие образы `mke2fs -t ext4` (1KiB blocks) и `mkfs.btrfs` прочитаны через `FileDisk` вне набора тестов: ext4 вернул `hello real ext4\n`, btrfs — `statfs()` и subvolume `/default`.
-- dentry LRU: `dput()` переводит неиспользуемый dentry в `dentry_unused`, `d_lookup()` воскрещает его с LRU, отрицательные dentry также вытесняются; `pruneDcache(0)` освобождает всё дерево кроме root, после чего повторный namei создаёт новые dentry. CLONE_NEWNS проверен отдельными тестами `vfs`, `task` и `syscall`: 229/229 зелёные.
+- dentry LRU: `dput()` переводит неиспользуемый dentry в `dentry_unused`, `d_lookup()` воскрещает его с LRU, отрицательные dentry также вытесняются; `pruneDcache(0)` освобождает всё дерево кроме root, после чего повторный namei создаёт новые dentry. CLONE_NEWNS проверен отдельными тестами `vfs`, `task` и `syscall`: 235/235 зелёные.
 
 - PCI/virtio-blk: legacy `0xCF8`/`0xCFC` scan находит virtio device `1af4:1001`,
   BAR0 decode и bus-master включаются до `DRIVER_OK`; split virtqueue uses
@@ -278,23 +278,23 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `CLONE_NEWNS`: `copy_tree()`, refcount namespace в `task_struct`, syscall
     `unshare()`, peer groups `MS_SHARED`/`MS_PRIVATE` с распространением
     mount/umount между namespace-ами. Host-тесты `vfs`/`task`/`syscall`
-    зелёные (229/229); QEMU без паник.
+    зелёные (235/235); QEMU без паник.
 12. **Этап 12 (готово):** legacy PCI scan и read-only virtio-blk в UEFI-ядре:
     split virtqueue, `block.Device`, boot-time MBR partition scan и монтирование
-    ext4-образа в `/mnt` с проверкой в QEMU (229/229 host-тестов зелёные).
+    ext4-образа в `/mnt` с проверкой в QEMU (235/235 host-тестов зелёные).
 13. **Этап 13 (готово):** GPT с проверкой CRC и read-only NVMe/AHCI в UEFI-ядре:
     `block.Device` у всех трёх backend-ов, `scanAndMount()` пробует GPT перед MBR,
-    шесть комбинаций backend × таблица разделов проверены в QEMU (229/229 host-тестов).
+    шесть комбинаций backend × таблица разделов проверены в QEMU (235/235 host-тестов).
 14. **Этап 14 (готово):** read-only virtio-scsi в UEFI-ядре: legacy PCI,
     очереди control/event/request, INQUIRY, READ CAPACITY(10) с повтором при
     unit attention, READ(10), `block.Device`, boot-time mount; MBR и GPT
-    проверены в QEMU (229/229 host-тестов).
+    проверены в QEMU (235/235 host-тестов).
 15. **Этап 15 (готово):** PS/2-клавиатура, GOP-консоль и xHCI discovery через
     `TtyOps` и модель `Bus`/`Device`/`Driver`: device core связывает
     `vt-console`, `atkbd` и `xhci-pci`, ввод идёт в `tty.receive()`, вывод —
     в UART и framebuffer. QEMU с `-Dusb-kbd=true` показывает `device core:
     console=bound atkbd=bound xhci=bound` и `i8042 present=yes ack=yes`
-    (229/229 host-тестов).
+    (235/235 host-тестов).
 16. **Этап 16 (готово):** полный xHCI boot-keyboard и TTY-backed stdio:
     `xhci.zig` поднимает контроллер, event ring и interrupt-IN transfer,
     `hid.zig` декодирует 8-байтовые report-ы в `input.Keyboard`,
@@ -302,39 +302,39 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     fd 0/1/2 через `Tty.read`/`Tty.write`. QEMU печатает `[usb] port 5:
     device connected`, `[usb]   boot keyboard ready`, `xhci ... kbd=yes`,
     `stdio: fd 0/1/2 -> active tty pgrp 1`; ring3 `write(1, ...)` снова виден как
-    `USER!` уже через TTY (229/229 host-тестов).
+    `USER!` уже через TTY (235/235 host-тестов).
 17. **Этап 17 (готово):** активный VT и переключение `Alt+F1..F4`: `src/vt.zig`
     маршрутизирует PS/2- и HID-события в `Tty` активной консоли, `SwitchHook`
     меняет сохранённые экраны через `console.swapState()`, `stdio.Ops` работает
     с активным VT. QEMU печатает `tty1..tty4 ready` и
     `vt: 4 VTs, active=tty1, switches=4`; ввод не дублируется между консолями
-    (229/229 host-тестов).
+    (235/235 host-тестов).
 18. **Этап 18 (готово):** in-place ext4 writeback: `src/ext4.zig` добавил
     `file_operations.write` и грязные extent-блоки, `super_operations.sync_fs`
     сбрасывает их через `Writeback` → `block.Device`; `virtio_blk.zig` научился
     `VIRTIO_BLK_T_OUT`, `block.clonePartition()` сохраняет контекст раздела.
     QEMU с `-Dfs-write-probe=true` печатает
     `ext4 write: ok readback=ok bytes=11 dirty=0 synced=8`, а байты меняются
-    на scratch-образе (229/229 host-тестов).
+    на scratch-образе (235/235 host-тестов).
 19. **Этап 19 (готово):** выделение блоков и рост файла ext4: first-fit по
     block bitmap одной группы, пересчёт `s_free_blocks_count`/`bg_free_blocks_count`,
     вставка листа в depth-0 extent tree, обновление `i_size`/`i_blocks`,
     предпроверка ENOSPC до записи; checksum-метаданные и multi-group явно
     отклоняются. QEMU с `-Dfs-grow-probe=true` печатает
     `ext4 grow: ok readback=ok bytes=1100 size=1116 free=2732 dirty=0 synced=18`,
-    а `e2fsck -fn` на scratch-разделе проходит чисто (229/229 host-тестов).
+    а `e2fsck -fn` на scratch-разделе проходит чисто (235/235 host-тестов).
 20. **Этап 20 (готово):** запись через virtio-scsi/NVMe/AHCI: WRITE(10),
     WRITE DMA EXT (LBA48) и NVMe Write с правильным направлением дескрипторов
     и read-modify-write для 512-байтовых секторов. `e2fsck -fn` проходит чисто
     после `ext4 write:` и `ext4 grow:` на scratch-образах со всеми четырьмя
-    backend-ами (229/229 host-тестов).
+    backend-ами (235/235 host-тестов).
 21. **Этап 21 (готово):** persistent namespace ext4: `DirOps` в VFS и
     `Namespace.createAt()`/`unlinkAt()`, first-fit inode bitmap, пересчёт
     `s_free_inodes_count`/`bg_free_inodes_count`, split `dir_entry_2` в корневом
     каталоге, обновление `i_links_count`/flags нового inode и освобождение
     extent-ов при unlink. QEMU с `-Dfs-namei-probe=true` печатает
     `ext4 namei: creat=ok unlink=ok readback=ok dirty=0 synced=18 errno=0`,
-    `e2fsck -fn` на scratch-разделе проходит чисто (229/229 host-тестов).
+    `e2fsck -fn` на scratch-разделе проходит чисто (235/235 host-тестов).
 22. **Этап 22 (готово):** persistent `mkdir` в ext4: `DirOps.mkdir` и
     `Namespace.mkdirAt()`, выделение inode и одного блока под каталог, запись
     `.`/`..` и свободного хвоста `dir_entry_2`, увеличение
@@ -343,7 +343,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `DirOps` смонтированного ext4. QEMU с `-Dfs-mkdir-probe=true`
     печатает `ext4 mkdir: mkdir=ok create=ok readback=ok unlink=ok dirty=0
     synced=18 errno=0`, `e2fsck -fn` на scratch-разделе проходит чисто
-    (229/229 host-тестов).
+    (235/235 host-тестов).
 23. **Этап 23 (готово):** persistent `rmdir` в ext4: `DirOps.rmdir` и
     `Namespace.rmdirAt()` проверяют, что каталог содержит только `.`/`..` и
     свободный хвост блока, затем удаляют запись из родителя, уменьшают
@@ -352,7 +352,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     dentry; `syscall.rmdir()` идёт через `DirOps` смонтированного ext4. QEMU с
     `-Dfs-rmdir-probe=true` печатает `ext4 rmdir: mkdir=ok nested=ok rmdir=ok
     dirty=0 synced=22 errno=0`, `e2fsck -fn` на scratch-разделе проходит чисто
-    (229/229 host-тестов).
+    (235/235 host-тестов).
 24. **Этап 24 (готово):** persistent JBD2-журнал ext4: `s_journal_inum`,
     journal superblock, дескриптор с 32-битными тегами, data block и commit
     block; `sync_fs()` пишет транзакцию до целевых блоков, и только после
@@ -360,7 +360,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `INCOMPAT_RECOVER` журнал воспроизводит закоммиченную транзакцию. QEMU с
     `-Dfs-journal-probe=true` печатает `ext4 journal: active=ok readback=ok
     commits=1 replays=0 start=0 dirty=0 synced=8 errno=0`, `e2fsck -fn` на
-    scratch-разделе проходит чисто (229/229 host-тестов).
+    scratch-разделе проходит чисто (235/235 host-тестов).
 25. **Этап 25 (готово):** persistent split extent-дерева ext4: при заполнении
     корневого листа (`eh_entries == eh_max`) выделяется metadata-блок, все
     старые extent-ы переносятся в него, а корень становится индексом depth 1
@@ -369,7 +369,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     одной JBD2-транзакцией и учитываются в `i_blocks`. QEMU с
     `-Dfs-split-probe=true` печатает `ext4 split: depth=1 readback=ok
     bytes=5120 size=5136 free=2727 dirty=0 synced=28 errno=0`, `e2fsck -fn` на
-    scratch-разделе проходит чисто (229/229 host-тестов).
+    scratch-разделе проходит чисто (235/235 host-тестов).
 26. **Этап 26 (готово):** разреженные записи ext4: `writeAt()` больше не
     требует `offset == i_size`; пропуск до новой позиции не аллоцируется, а
     extent вставляется по ключу `ee_block` и в середину дыры, что сохраняет
@@ -378,7 +378,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `-Dfs-sparse-probe=true` печатает `ext4 sparse: hole=ok readback=ok
     bytes=512 size=8704 entries=2 depth=0 free=2732 dirty=0 synced=16 errno=0`,
     `debugfs` показывает `(0):1362, (8):1363`, `e2fsck -fn` на scratch-разделе
-    проходит чисто (229/229 host-тестов).
+    проходит чисто (235/235 host-тестов).
 27. **Этап 27 (готово):** split extent-дерева ext4 выше depth 1. `writeAt()`
     обобщён на depth 0..2: `findLeafPath()` строит путь от корня до leaf,
     вставка идёт по `ee_block`, полный leaf делится пополам, полный корень
@@ -389,7 +389,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     Boot-time проба с synthetic full-depth1 разделом печатает
     `ext4 depth2: depth=2 entries=2 hole=ok readback=ok bytes=1024 size=345088
     free=3742 dirty=0 synced=9 errno=0`, `e2fsck -fn` проходит чисто
-    (229/229 host-тестов).
+    (235/235 host-тестов).
 28. **Этап 28 (готово):** первый сетевой срез — `sk_buff` и socket layer.
     `src/skb.zig` портирует headroom/tailroom и `skb_put`/`skb_push`/`skb_pull`/
     `skb_trim`, `skb_clone`/`skb_copy`/`unshare`/`free` с датарефом и RFC 1071
@@ -399,7 +399,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     checksum с псевдозаголовком IPv4. Boot-проба `-Dnet-probe=true` печатает
     `net: ok skb=ok clone=ok csum=ok bind=ok loopback=ok recv=ok inuse=ok
     refused=ok bytes=10 queue=0 packets=1 drops=1 errno=0`; итоговая матрица
-    0.62.0 — загрузка 9/9 и пробы 272/272 (229/229 host-тестов).
+    0.63.0 — загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
 29. **Этап 29 (готово):** TCP (`SOCK_STREAM`) поверх `sk_buff` и `proto_ops`.
     `src/tcp.zig` портирует состояния `include/net/tcp_states.h` (включая
     `TIME_WAIT`), `struct tcphdr`, checksum с IPv4-псевдозаголовком, ISS/IRS,
@@ -408,8 +408,8 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     добавляет `IPPROTO_TCP`, отдельные TCP `proto_ops` и `Net.tick()`.
     Boot-проба `-Dtcp-probe=true` печатает
     `tcp: ok checksum=ok handshake=ok stream=ok retransmit=ok close=ok bytes=10
-    segments=11 acks=4 state=CLOSE errno=0`; матрица 0.62.0 — загрузка 9/9
-    и пробы 272/272 (229/229 host-тестов).
+    segments=11 acks=4 state=CLOSE errno=0`; матрица 0.63.0 — загрузка 9/9
+    и пробы 280/280 (235/235 host-тестов).
 30. **Этап 30 (готово):** `AF_INET6`/`SOCK_DGRAM` loopback. `src/inet6.zig`
     портирует `struct in6_addr`, `struct sockaddr_in6`, `ipv6_addr_equal/any/
     loopback`, 40-байтовый псевдозаголовок `csum_ipv6_magic()` из
@@ -418,8 +418,8 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     recvfrom6`, ephemeral-порты IPv6 и проверку checksum. Boot-проба
     `-Dinet6-probe=true` печатает
     `inet6: ok addr=ok csum=ok bind=ok loopback=ok recv=ok inuse=ok
-    refused=ok bytes=12 queue=0 packets=1 drops=1 errno=0`; матрица 0.62.0 —
-    загрузка 9/9 и пробы 272/272 (229/229 host-тестов).
+    refused=ok bytes=12 queue=0 packets=1 drops=1 errno=0`; матрица 0.63.0 —
+    загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
 31. **Этап 31 (готово):** JBD2 revoke, checksums, 64-bit tags и wrap-around.
     `src/ext4.zig` портирует CRC32C (`0x82f6_3b78`) с seed из UUID журнала,
     проверку `journal_superblock_t`, теги v2 (12/14 байт) и v3 (16 байт),
@@ -431,7 +431,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `-Djbd2-probe=true` печатает
     `ziglinux: jbd2: active=ok features=ok csum=ok revoke=ok commit=ok
     readback=ok commits=1 replays=0 start=0 dirty=0 synced=9 errno=0`,
-    `e2fsck -fn` на scratch-разделе проходит чисто (229/229 host-тестов).
+    `e2fsck -fn` на scratch-разделе проходит чисто (235/235 host-тестов).
 32. **Этап 32 (готово):** netdev, IPv4 FIB и реальный virtio-net NIC.
     `src/netdev.zig` портирует `net_device`/netdev_ops: `dev_queue_xmit()`,
     `netif_rx()`, flags (`IFF_UP`/`IFF_RUNNING`), ifindex, MTU, MAC, счётчики
@@ -442,7 +442,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `VIRTIO_NET_F_MAC`, 10-байтовым `virtio_net_hdr` и отдельными RX/TX
     split-virtqueue; `src/arch/drivers/net.zig` регистрирует eth0, показывает
     ARP gateway и обменивается ICMP echo через `-Dnetdev-probe=true`. Матрица
-    0.62.0: загрузка 9/9 и пробы 272/272 (229/229 host-тестов).
+    0.63.0: загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
 33. **Этап 33 (готово):** TCP Reno congestion control. `src/tcp_ca.zig`
     переносит `tcp_slow_start()`, `tcp_cong_avoid_ai()`, `tcp_reno_ssthresh()`,
     `tcp_reno_undo_cwnd()`, состояния `TCP_CA_*`, три dup ACK с fast
@@ -452,8 +452,8 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     Boot-проба `-Dtcp-ca-probe=true` печатает
     `ziglinux: tcp-ca: ok reno=ok slow-start=ok avoidance=ok ssthresh=ok
     fast-retransmit=ok recovery=ok timeout=ok cwnd=1 threshold=8 dupacks=0
-    state=Loss acks=10 errno=0`. Матрица 0.62.0: загрузка 9/9 и пробы 272/272
-    (229/229 host-тестов).
+    state=Loss acks=10 errno=0`. Матрица 0.63.0: загрузка 9/9 и пробы 280/280
+    (235/235 host-тестов).
 34. **Этап 34 (готово):** опции TCP и таймеры. `src/tcp_options.zig` портирует
     `TCPOPT_WINDOW`, `TCPOPT_SACK_PERM` и `TCPOPT_SACK` из
     `include/uapi/linux/tcp.h`, разбор по образцу `tcp_parse_options()` и
@@ -463,8 +463,8 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     сегменты и удваивает RTO при каждом следующем таймауте (`tcp_backoff()`).
     Boot-проба `-Dtcp-options-probe=true` печатает
     `ziglinux: tcp-opt: ok window-scale=ok sack=ok ofo=ok backoff=ok shift=7
-    blocks=1 sacked=1 rto=200/400/800 errno=0`. Матрица 0.62.0: загрузка 9/9
-    и пробы 272/272 (229/229 host-тестов).
+    blocks=1 sacked=1 rto=200/400/800 errno=0`. Матрица 0.63.0: загрузка 9/9
+    и пробы 280/280 (235/235 host-тестов).
 35. **Этап 35 (готово):** ICMPv6 и NDP. `src/icmp6.zig` портирует
     `ICMPV6_ECHO_REQUEST/REPLY` из `include/uapi/linux/icmpv6.h`, NS/NA
     (`NDISC_NEIGHBOUR_SOLICITATION/ADVERTISEMENT`), опции
@@ -474,7 +474,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     с переходами `Incomplete → Reachable → Stale`. Boot-проба
     `-Dicmp6-probe=true` печатает
     `ziglinux: icmp6: ok echo=ok checksum=ok ndp=ok multicast=ok state=Stale
-    errno=0`; матрица 0.62.0 — загрузка 9/9 и пробы 272/272 (229/229
+    errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы 280/280 (235/235
     host-тестов).
 36. **Этап 36 (готово):** queueing discipline, NAPI и SMP tasklist lock.
     `src/qdisc.zig` портирует `struct Qdisc`, `sch_default_prio2band` и
@@ -487,7 +487,7 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `-Dqueue-probe=true` печатает
     `ziglinux: queue: ok qdisc=ok priority=ok order=ok limit=ok napi=ok
     weight=ok schedule=ok budget=ok repoll=ok processed=24 errno=0`; матрица
-    0.62.0 — загрузка 9/9 и пробы 272/272 (229/229 host-тестов).
+    0.63.0 — загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
 37. **Этап 37 (готово):** fq_codel. `src/fq_codel.zig` портирует
     `fq_codel_classify()` через `reciprocal_scale(skb_get_hash(), flows_cnt)`,
     два round-robin списка new/old, deficit по `quantum`, `fq_codel_drop()`
@@ -495,16 +495,16 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     Interval=100 мс, wrap-safe сравнениями, `rec_inv_sqrt` и ECN-маркировкой
     через `INET_ECN_set_ce()`. Boot-проба `-Dfq-codel-probe=true` печатает
     `ziglinux: fqcodel: ok hash=ok rr=ok deficit=ok codel=ok ecn=ok
-    overlimit=ok drops=2 marks=1 errno=0`; матрица 0.62.0 — загрузка 9/9 и
-    пробы 272/272 (229/229 host-тестов).
+    overlimit=ok drops=2 marks=1 errno=0`; матрица 0.63.0 — загрузка 9/9 и
+    пробы 280/280 (235/235 host-тестов).
 38. **Этап 38 (готово):** HTB. `src/htb.zig` портирует иерархический token
     bucket из `net/sched/sch_htb.c`: `psched_l2t_ns()`, классы root/leaf с
     rate/ceil и buffer/cbuffer, гистерезис `htb_lowater()/htb_hiwater()`,
     `htb_class_mode()`, заимствование у родителя и deficit round-robin по
     приоритетам. Boot-проба `-Dhtb-probe=true` печатает
     `ziglinux: htb: ok rate=ok ceil=ok borrow=ok prio=ok deficit=ok
-    limit=ok errno=0`; матрица 0.62.0 — загрузка 9/9 и пробы 272/272
-    (229/229 host-тестов).
+    limit=ok errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы 280/280
+    (235/235 host-тестов).
 39. **Этап 39 (готово):** полные TCP-таймеры и window probing.
     `src/tcp_timers.zig` портирует `tcp_write_timer()`, `tcp_retransmit_timer()`
     с `inet_csk_rto_backoff()` и `tcp_retries2`, `tcp_check_probe_timer()`,
@@ -513,88 +513,88 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     DELACK_MIN/MAX и `tcp_keepalive_timer()` (2 часа, 9 проб, 75 с). Boot-проба
     `-Dtcp-timers-probe=true` печатает `ziglinux: tcptimers: ok retrans=ok
     backoff=ok probe0=ok delack=ok keepalive=ok user-timeout=ok errno=0`;
-    матрица 0.62.0 — загрузка 9/9 и пробы 272/272 (229/229 host-тестов).
+    матрица 0.63.0 — загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
 40. **Этап 40 (готово):** MLD и router discovery. `src/mld.zig` переносит
     MLDv1 query/report/done и MLDv2 report с grec из `net/ipv6/mcast.c`,
     плавающую кодировку MRC/QQIC из `include/net/mld.h`, router
     solicitation/advertisement и обход ND-опций из `net/ipv6/ndisc.c`.
     Boot-проба `-Dmld-probe=true` печатает `ziglinux: mld: ok mld1=ok mld2=ok
-    grec=ok mrc=ok qqic=ok ra=ok options=ok rs=ok errno=0`; матрица 0.62.0 —
-    загрузка 9/9 и пробы 272/272 (229/229 host-тестов).
+    grec=ok mrc=ok qqic=ok ra=ok options=ok rs=ok errno=0`; матрица 0.63.0 —
+    загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
 41. **Этап 41 (готово):** TCPv6. `src/tcp_v6.zig` переносит `tcp_v6_check()`
     с псевдозаголовком IPv6, поиск сокета по 4-кортежу с IPv6-адресами,
     `tcp_v6_connect()`, `tcp_v6_send_synack()` и обработку ACK в SYN_RECV.
     Boot-проба `-Dtcpv6-probe=true` печатает `ziglinux: tcpv6: ok checksum=ok
-    handshake=ok lookup=ok data=ok errno=0`; матрица 0.62.0 — загрузка 9/9 и
-    пробы 272/272 (229/229 host-тестов).
+    handshake=ok lookup=ok data=ok errno=0`; матрица 0.63.0 — загрузка 9/9 и
+    пробы 280/280 (235/235 host-тестов).
 42. **Этап 42 (готово):** promiscuous и multicast. `src/rx_mode.zig` переносит
     счётчики `__dev_set_promiscuity()`/`__dev_set_allmulti()`, список
     `dev_mc_add()`/`dev_mc_del()` с ссылками, команды virtio-net control RX и
     решение о приёме кадра по MAC. Boot-проба `-Drx-mode-probe=true` печатает
     `ziglinux: rxmode: ok promisc=ok allmulti=ok mc=ok virtio=ok filter=ok
-    errno=0`; матрица 0.62.0 — загрузка 9/9 и пробы 272/272 (229/229
+    errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы 280/280 (235/235
     host-тестов).
 43. **Этап 43 (готово):** hotplug корневого хаба xHCI. `src/usb_hotplug.zig`
     переносит декодирование Port Status Change Event (TRB 34), биты PORTSC,
     обработку `C_CONNECTION` по образцу `port_event()`, сброс порта и повторное
     использование слотов. Boot-проба `-Dusb-hotplug-probe=true` печатает
     `ziglinux: usbhotplug: ok decode=ok attach=ok detach=ok reset=ok reuse=ok
-    errno=0`; матрица 0.62.0 — загрузка 9/9 и пробы 272/272 (229/229
+    errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы 280/280 (235/235
     host-тестов).
 44. **Этап 44 (готово):** NCQ для AHCI. `src/ncq.zig` переносит проверку
     CAP.NCQ и IDENTIFY word 76, глубину очереди из CAP.NCS, H2D FIS FPDMA
     READ/WRITE с тегом в nsect и учёт SActive/CI по завершении команд.
     Boot-проба `-Dncq-probe=true` печатает `ziglinux: ncq: ok cap=ok fis=ok
-    queue=ok completion=ok errno=0`; матрица 0.62.0 — загрузка 9/9 и пробы
-    272/272 (229/229 host-тестов).
+    queue=ok completion=ok errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы
+    280/280 (235/235 host-тестов).
 45. **Этап 45 (готово):** базовое DRM-ядро. `src/drm.zig` переносит
     `drm_mode_validate_basic()`, `drm_mode_validate_size()`, `drm_mode_vrefresh()`,
     геометрию framebuffer и page flip CRTC. Boot-проба `-Ddrm-probe=true`
     печатает `ziglinux: drm: ok basic=ok size=ok refresh=ok framebuffer=ok
-    crtc=ok errno=0`; матрица 0.62.0 — загрузка 9/9 и пробы 272/272 (229/229
+    crtc=ok errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы 280/280 (235/235
     host-тестов).
 46. **Этап 46 (готово):** IGMPv1/v2/v3 для IPv4-мультикаста. `src/igmp.zig`
     переносит кодирование MRC/QQIC из `include/linux/igmp.h`, разбор и сборку
     query/report/leave с контрольной суммой, состояние групп и ответ по таймеру
     из `net/ipv4/igmp.c`. Boot-проба `-Digmp-probe=true` печатает
     `ziglinux: igmp: ok encoding=ok message=ok membership=ok query=ok leave=ok
-    errno=0`; матрица 0.62.0 — загрузка 9/9 и пробы 272/272 (229/229
+    errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы 280/280 (235/235
     host-тестов).
 47. **Этап 47 (готово):** дефрагментация IPv4. `src/ip_defrag.zig` переносит
     разбор `frag_off` (IP_MF/IP_OFFSET), проверки `ip_frag_queue()`, усечение
     MF-фрагментов до 8-байтовой границы, учёт FIRST_IN/LAST_IN/meat, сборку
     `ip_frag_reasm()` и истечение очереди. Boot-проба `-Dip-defrag-probe=true`
     печатает `ziglinux: ipdefrag: ok offsets=ok reorder=ok limits=ok timeout=ok
-    errno=0`; матрица 0.62.0 — загрузка 9/9 и пробы 272/272 (229/229
+    errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы 280/280 (235/235
     host-тестов).
 48. **Этап 48 (готово):** базовое AF_UNIX-ядро. `src/unix_sock.zig` переносит
     `unix_validate_addr()`, BSD- и abstract-имена, `unix_bind()`,
     `unix_find_other()`, `unix_stream_connect()`, `unix_accept()`,
     `unix_socketpair()`, stream/dgram-очереди и `unix_release_sock()`.
     Boot-проба `-Dunix-sock-probe=true` печатает `ziglinux: unixsock: ok
-    names=ok pair=ok bind=ok datagram=ok close=ok errno=0`; матрица 0.62.0 —
-    загрузка 9/9 и пробы 272/272 (229/229 host-тестов).
+    names=ok pair=ok bind=ok datagram=ok close=ok errno=0`; матрица 0.63.0 —
+    загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
 49. **Этап 49 (готово):** фрагментация IPv6. `src/ipv6_frag.zig` переносит
     `struct frag_hdr`, биты IP6_MF/IP6_OFFSET, проверки `ip6_frag_queue()`
     (выравнивание MF по 8 байт, лимит IPV6_MAXPLEN, дубликаты и перекрытия),
     `ip6_frag_reasm()` с восстановлением next-header и истечение очереди.
     Boot-проба `-Dipv6-frag-probe=true` печатает `ziglinux: ipv6frag: ok
     header=ok offsets=ok reorder=ok limits=ok timeout=ok errno=0`; матрица
-    0.62.0 — загрузка 9/9 и пробы 272/272 (229/229 host-тестов).
+    0.63.0 — загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
 50. **Этап 50 (готово):** базовое ядро netlink. `src/netlink.zig` переносит
     `nlmsghdr`, `NLMSG_OK()/NLMSG_NEXT()`, `nlattr`, `nla_ok()/nla_next()`,
     маску `NLA_TYPE_MASK`, разбор multipart-сообщений, `netlink_rcv_skb()`
     (REQUEST/DONE/ACK) и `netlink_bind()` с multicast-группами. Boot-проба
     `-Dnetlink-probe=true` печатает `ziglinux: netlink: ok header=ok
-    messages=ok attrs=ok dispatch=ok socket=ok errno=0`; матрица 0.62.0 —
-    загрузка 9/9 и пробы 272/272 (229/229 host-тестов).
+    messages=ok attrs=ok dispatch=ok socket=ok errno=0`; матрица 0.63.0 —
+    загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
 51. **Этап 51 (готово):** базовое ядро cgroup v2. `src/cgroup.zig` переносит
     иерархию `cgroup_mkdir()/cgroup_rmdir()`, `cgroup_subtree_control_write()`,
     миграцию задач `cgroup_attach_task()`, лимиты `pids.max`/`memory.max`/
     `cpu.max` и счётчики событий. Boot-проба `-Dcgroup-probe=true` печатает
     `ziglinux: cgroup: ok hierarchy=ok controllers=ok attach=ok limits=ok
-    rmdir=ok errno=0`; матрица 0.62.0 — загрузка 9/9 и пробы 272/272
-    (229/229 host-тестов).
+    rmdir=ok errno=0`; матрица 0.63.0 — загрузка 9/9 и пробы 280/280
+    (235/235 host-тестов).
 52. **Блоки/драйверы:** каскадные внешние хабы xHCI и DRM-драйверы GPU; split
     выше depth 2 не реализован.
 53. **Этап 52 (готово):** TCP CUBIC. `src/cubic.zig` переносит целочисленный
@@ -602,14 +602,21 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `cubictcp_recalc_ssthresh()` с beta=717/1024 и fast convergence, slow
     start/AIMD-ветвь `cubictcp_cong_avoid()` и HyStart по задержке. Boot-проба
     `-Dcubic-probe=true` печатает `ziglinux: cubic: ok root=ok ssthresh=ok
-    update=ok growth=ok hystart=ok errno=0`; матрица 0.62.0 — загрузка 9/9 и
-    пробы 272/272 (229/229 host-тестов).
-54. **Сеть:** netdev/FIB, один virtio-net NIC, Reno, CUBIC, window scale, SACK,
-    RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6, дефрагментация
-    IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast, pfifo_fast, NAPI,
-    fq_codel, HTB и полные TCP-таймеры уже работают; остаются другие NIC и
-    реальная сеть за пределами QEMU user net.
-55. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
+    update=ok growth=ok hystart=ok errno=0`; матрица 0.63.0 — загрузка 9/9 и
+    пробы 280/280 (235/235 host-тестов).
+54. **Этап 53 (готово):** драйвер Intel PRO/1000. `src/e1000.zig` переносит
+    кольца TX/RX `e1000_xmit_frame()`, `e1000_clean_tx_irq()`,
+    `e1000_clean_rx_irq()` и `e1000_alloc_rx_buffers()`: TSO/checksum-offload,
+    разбиение на дескрипторы, DD/EOP, NAPI-бюджет, повторный постинг буферов и
+    wake_queue. Boot-проба `-De1000-probe=true` печатает
+    `ziglinux: e1000: ok ring=ok tx=ok rx=ok csum=ok napi=ok errno=0`; матрица
+    0.63.0 — загрузка 9/9 и пробы 280/280 (235/235 host-тестов).
+55. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
+    window scale, SACK, RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6,
+    дефрагментация IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast,
+    pfifo_fast, NAPI, fq_codel, HTB и полные TCP-таймеры уже работают; остаются
+    другие NIC и реальная сеть за пределами QEMU user net.
+56. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
     systemd-заглушки (AF_UNIX) по `zigos/docs/systemd.md`.
 
 Каждый этап должен сохранять `zig build test` зелёным и добавлять новые

@@ -560,6 +560,20 @@ pub fn kmain() noreturn {
         if (!probe.root or !probe.ssthresh or !probe.update or !probe.growth or !probe.hystart)
             printk.panic("cubic probe failed");
     }
+    if (build_options.e1000_probe) {
+        const probe = kl.e1000.probe();
+        printk.print("ziglinux: e1000: {s} ring={s} tx={s} rx={s} csum={s} napi={s} errno={d}\n", .{
+            probe.status,
+            if (probe.ring) "ok" else "failed",
+            if (probe.tx) "ok" else "failed",
+            if (probe.rx) "ok" else "failed",
+            if (probe.csum) "ok" else "failed",
+            if (probe.napi) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.ring or !probe.tx or !probe.rx or !probe.csum or !probe.napi)
+            printk.panic("e1000 probe failed");
+    }
     if (build_options.inet6_probe) {
         const probe = kl.net.probeInet6(heap.allocator()) catch {
             printk.panic("inet6 probe failed");
