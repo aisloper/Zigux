@@ -626,12 +626,19 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     CSR3/CSR0. Boot-проба `-Dpcnet32-probe=true` печатает
     `ziglinux: pcnet32: ok probe=ok ring=ok mac=ok tx=ok rx=ok irq=ok errno=0`;
     матрица 0.65.0 — загрузка 9/9 и пробы 296/296 (253/253 host-тестов).
-57. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
+57. **Этап 56 (готово):** NE2000/RTL8019 (8390). `src/ne2k.zig` переносит
+    разбор SAPROM/PROM с определением 16-битного режима и RTL8019-quirk,
+    план инициализации 8390, двухслотовую передачу, заголовок RX-кадра,
+    проверку указателя next, приём по статусу ENRSR_RXOK и ISR/overrun-recovery.
+    Boot-проба `-Dne2k-probe=true` печатает `ziglinux: ne2k: ok probe=ok mac=ok
+    init=ok tx=ok rx=ok irq=ok errno=0`; матрица 0.66.0 — загрузка 9/9 и пробы
+    304/304 (261/261 host-тестов).
+58. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
     window scale, SACK, RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6,
     дефрагментация IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast,
     pfifo_fast, NAPI, fq_codel, HTB и полные TCP-таймеры уже работают; остаются
     другие NIC и реальная сеть за пределами QEMU user net.
-58. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
+59. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
     systemd-заглушки (AF_UNIX) по `zigos/docs/systemd.md`.
 
 Каждый этап должен сохранять `zig build test` зелёным и добавлять новые

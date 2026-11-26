@@ -462,6 +462,13 @@ framebuffer) и `serial.puts()`. `printk` по-прежнему пишет то�
     `ziglinux: pcnet32: ok probe=ok ring=ok mac=ok tx=ok rx=ok irq=ok errno=0`.
     Матрица 0.65.0: загрузка 9/9 и пробы 296/296 (253/253 host-тестов).
 
+49. Срез 0.66.0: `src/ne2k.zig` переносит NE2000/RTL8019 (8390): SAPROM
+    dedupe/RTL8019 quirk, layout кольца TX/RX, двухслотовая передача, заголовок
+    RX-кадра, валидация next-указателя, ENRSR_RXOK и ISR/overrun-recovery.
+    Boot-проба `-Dne2k-probe=true` печатает `ziglinux: ne2k: ok probe=ok mac=ok
+    init=ok tx=ok rx=ok irq=ok errno=0`. Матрица 0.66.0: загрузка 9/9 и пробы
+    304/304 (261/261 host-тестов).
+
 ## Что осталось подключить
 
 1. DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent

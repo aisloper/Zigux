@@ -140,6 +140,11 @@ pub fn build(b: *std.Build) void {
         "pcnet32-probe",
         "Exercise AMD PCnet32 CSR access, ring, MAC, TX/RX and IRQ masking",
     ) orelse false;
+    const ne2k_probe = b.option(
+        bool,
+        "ne2k-probe",
+        "Exercise NE2000 PROM, ring, TX/RX and ISR recovery",
+    ) orelse false;
     const ncq_probe = b.option(
         bool,
         "ncq-probe",
@@ -218,6 +223,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "usb_hotplug_probe", usb_hotplug_probe);
     options.addOption(bool, "xhci_cascade_probe", xhci_cascade_probe);
     options.addOption(bool, "pcnet32_probe", pcnet32_probe);
+    options.addOption(bool, "ne2k_probe", ne2k_probe);
     options.addOption(bool, "ncq_probe", ncq_probe);
     options.addOption(bool, "drm_probe", drm_probe);
     options.addOption(bool, "igmp_probe", igmp_probe);
