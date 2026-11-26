@@ -455,6 +455,13 @@ framebuffer) и `serial.puts()`. `printk` по-прежнему пишет то�
     descriptor=ok depth=ok tt=ok cascade=ok bandwidth=ok errno=0`. Матрица
     0.64.0: загрузка 9/9 и пробы 288/288 (244/244 host-тестов).
 
+48. Срез 0.65.0: `src/pcnet32.zig` переносит AMD PCnet32: WIO/DWIO-доступ
+    через RAP=88, chipcode из CSR88/CSR89, MAC и multicast, init block,
+    ownership-биты колец, TXPOLL, разбор RX-статусов, NAPI-маски и
+    reset/start/stop. Boot-проба `-Dpcnet32-probe=true` печатает
+    `ziglinux: pcnet32: ok probe=ok ring=ok mac=ok tx=ok rx=ok irq=ok errno=0`.
+    Матрица 0.65.0: загрузка 9/9 и пробы 296/296 (253/253 host-тестов).
+
 ## Что осталось подключить
 
 1. DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent

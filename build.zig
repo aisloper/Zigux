@@ -135,6 +135,11 @@ pub fn build(b: *std.Build) void {
         "xhci-cascade-probe",
         "Exercise xHCI external hub descriptors, TT, cascade depth and bandwidth",
     ) orelse false;
+    const pcnet32_probe = b.option(
+        bool,
+        "pcnet32-probe",
+        "Exercise AMD PCnet32 CSR access, ring, MAC, TX/RX and IRQ masking",
+    ) orelse false;
     const ncq_probe = b.option(
         bool,
         "ncq-probe",
@@ -212,6 +217,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "rx_mode_probe", rx_mode_probe);
     options.addOption(bool, "usb_hotplug_probe", usb_hotplug_probe);
     options.addOption(bool, "xhci_cascade_probe", xhci_cascade_probe);
+    options.addOption(bool, "pcnet32_probe", pcnet32_probe);
     options.addOption(bool, "ncq_probe", ncq_probe);
     options.addOption(bool, "drm_probe", drm_probe);
     options.addOption(bool, "igmp_probe", igmp_probe);

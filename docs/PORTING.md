@@ -619,12 +619,19 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     `ziglinux: xhci-cascade: ok descriptor=ok depth=ok tt=ok cascade=ok
     bandwidth=ok errno=0`; матрица 0.64.0 — загрузка 9/9 и пробы 288/288
     (244/244 host-тестов).
-56. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
+56. **Этап 55 (готово):** драйвер AMD PCnet32. `src/pcnet32.zig` переносит
+    проверку доступа WIO/DWIO через RAP=88, decode chipcode из CSR88/CSR89,
+    MAC из CSR12..14 с PROM-fallback, инициализационный блок, кольца RX/TX
+    с битом владения, запуск TXPOLL, разбор статусов RX и NAPI-маски
+    CSR3/CSR0. Boot-проба `-Dpcnet32-probe=true` печатает
+    `ziglinux: pcnet32: ok probe=ok ring=ok mac=ok tx=ok rx=ok irq=ok errno=0`;
+    матрица 0.65.0 — загрузка 9/9 и пробы 296/296 (253/253 host-тестов).
+57. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
     window scale, SACK, RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6,
     дефрагментация IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast,
     pfifo_fast, NAPI, fq_codel, HTB и полные TCP-таймеры уже работают; остаются
     другие NIC и реальная сеть за пределами QEMU user net.
-57. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
+58. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
     systemd-заглушки (AF_UNIX) по `zigos/docs/systemd.md`.
 
 Каждый этап должен сохранять `zig build test` зелёным и добавлять новые

@@ -447,6 +447,21 @@ pub fn kmain() noreturn {
         if (!probe.descriptor or !probe.depth or !probe.tt or !probe.cascade or !probe.bandwidth)
             printk.panic("xhci cascade probe failed");
     }
+    if (build_options.pcnet32_probe) {
+        const probe = kl.pcnet32.probe();
+        printk.print("ziglinux: pcnet32: {s} probe={s} ring={s} mac={s} tx={s} rx={s} irq={s} errno={d}\n", .{
+            probe.status,
+            if (probe.probe) "ok" else "failed",
+            if (probe.ring) "ok" else "failed",
+            if (probe.mac) "ok" else "failed",
+            if (probe.tx) "ok" else "failed",
+            if (probe.rx) "ok" else "failed",
+            if (probe.irq) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.probe or !probe.ring or !probe.mac or !probe.tx or !probe.rx or !probe.irq)
+            printk.panic("pcnet32 probe failed");
+    }
     if (build_options.ncq_probe) {
         const probe = kl.ncq.probe();
         printk.print("ziglinux: ncq: {s} cap={s} fis={s} queue={s} completion={s} errno={d}\n", .{
