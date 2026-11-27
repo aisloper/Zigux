@@ -150,6 +150,11 @@ pub fn build(b: *std.Build) void {
         "e100-probe",
         "Exercise Intel e100 CU/RU rings, EEPROM, IRQ and configure",
     ) orelse false;
+    const tulip_probe = b.option(
+        bool,
+        "tulip-probe",
+        "Exercise DEC Tulip DC21143 descriptors, rings and multicast filter",
+    ) orelse false;
     const rtl8139_probe = b.option(
         bool,
         "rtl8139-probe",
@@ -241,6 +246,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "ne2k_probe", ne2k_probe);
     options.addOption(bool, "rtl8139_probe", rtl8139_probe);
     options.addOption(bool, "e100_probe", e100_probe);
+    options.addOption(bool, "tulip_probe", tulip_probe);
     options.addOption(bool, "rtl8139cp_probe", rtl8139cp_probe);
     options.addOption(bool, "ncq_probe", ncq_probe);
     options.addOption(bool, "drm_probe", drm_probe);

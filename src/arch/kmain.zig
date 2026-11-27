@@ -477,6 +477,21 @@ pub fn kmain() noreturn {
         if (!probe.probe or !probe.mac or !probe.tx or !probe.rx or !probe.irq or !probe.mcast)
             printk.panic("8139cp probe failed");
     }
+    if (build_options.tulip_probe) {
+        const probe = kl.tulip.probe();
+        printk.print("ziglinux: tulip: {s} probe={s} mac={s} tx={s} rx={s} irq={s} mcast={s} errno={d}\n", .{
+            probe.status,
+            if (probe.probe) "ok" else "failed",
+            if (probe.mac) "ok" else "failed",
+            if (probe.tx) "ok" else "failed",
+            if (probe.rx) "ok" else "failed",
+            if (probe.irq) "ok" else "failed",
+            if (probe.mcast) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.probe or !probe.mac or !probe.tx or !probe.rx or !probe.irq or !probe.mcast)
+            printk.panic("tulip probe failed");
+    }
     if (build_options.e100_probe) {
         const probe = kl.e100.probe();
         printk.print("ziglinux: e100: {s} probe={s} mac={s} cu={s} ru={s} irq={s} eeprom={s} errno={d}\n", .{

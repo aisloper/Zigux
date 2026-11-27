@@ -487,6 +487,13 @@ framebuffer) и `serial.puts()`. `printk` по-прежнему пишет то�
     probe=ok mac=ok tx=ok rx=ok irq=ok mcast=ok errno=0`. Матрица 0.69.0:
     загрузка 9/9 и пробы 328/328 (285/285 host-тестов).
 
+53. Срез 0.70.0: `src/tulip.zig` переносит DEC Tulip DC21143 (`1011:0019`):
+    PCI gating, RX/TX дескрипторы и ring wrap, TX flags, RX length/error,
+    CSR6 promisc/allmulti и multicast hash. Boot-проба `-Dtulip-probe=true`
+    печатает `ziglinux: tulip: ok probe=ok mac=ok tx=ok rx=ok irq=ok
+    mcast=ok errno=0`. Матрица 0.70.0: загрузка 9/9 и пробы 336/336
+    (290/290 host-тестов).
+
 ## Что осталось подключить
 
 1. DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent

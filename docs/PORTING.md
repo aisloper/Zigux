@@ -651,12 +651,18 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     multicast hash filter. Boot-проба `-Drtl8139cp-probe=true` печатает
     `ziglinux: 8139cp: ok probe=ok mac=ok tx=ok rx=ok irq=ok mcast=ok errno=0`;
     матрица 0.69.0 — загрузка 9/9 и пробы 328/328 (285/285 host-тестов).
-61. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
+61. **Этап 60 (готово):** DEC Tulip DC21143. `src/tulip.zig` переносит PCI
+    gating (`1011:0019`), RX/TX дескрипторы и ring wrap, TX flag selection,
+    RX length/error, CSR6 promisc/allmulti и 512-битный multicast hash.
+    Boot-проба `-Dtulip-probe=true` печатает `ziglinux: tulip: ok probe=ok
+    mac=ok tx=ok rx=ok irq=ok mcast=ok errno=0`; матрица 0.70.0 — загрузка 9/9
+    и пробы 336/336 (290/290 host-тестов).
+62. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
     window scale, SACK, RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6,
     дефрагментация IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast,
     pfifo_fast, NAPI, fq_codel, HTB и полные TCP-таймеры уже работают; остаются
     другие NIC и реальная сеть за пределами QEMU user net.
-62. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
+63. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
     systemd-заглушки (AF_UNIX) по `zigos/docs/systemd.md`.
 
 Каждый этап должен сохранять `zig build test` зелёным и добавлять новые
