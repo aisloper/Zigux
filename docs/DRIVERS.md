@@ -481,6 +481,12 @@ framebuffer) и `serial.puts()`. `printk` по-прежнему пишет то�
     probe=ok mac=ok cu=ok ru=ok irq=ok eeprom=ok errno=0`. Матрица 0.68.0:
     загрузка 9/9 и пробы 320/320 (277/277 host-тестов).
 
+52. Срез 0.69.0: `src/rtl8139cp.zig` переносит 8139C+ (8139cp): gating
+    ревизии, дескрипторы TX/RX, кольца, ISR ack/NAPI rearm, multicast hash.
+    Boot-проба `-Drtl8139cp-probe=true` печатает `ziglinux: 8139cp: ok
+    probe=ok mac=ok tx=ok rx=ok irq=ok mcast=ok errno=0`. Матрица 0.69.0:
+    загрузка 9/9 и пробы 328/328 (285/285 host-тестов).
+
 ## Что осталось подключить
 
 1. DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent

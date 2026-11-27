@@ -35,6 +35,7 @@ comptime {
     _ = @import("ne2k.zig");
     _ = @import("rtl8139.zig");
     _ = @import("e100.zig");
+    _ = @import("rtl8139cp.zig");
     _ = @import("ncq.zig");
     _ = @import("drm.zig");
     _ = @import("igmp.zig");

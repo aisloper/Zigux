@@ -2,7 +2,7 @@
 //! Библиотека без libc: подсистемы тестируются host-ом и подключены к UEFI-входу.
 pub const version_major: u32 = 7;
 pub const version_minor: u32 = 3;
-pub const port_version: []const u8 = "0.68.0";
+pub const port_version: []const u8 = "0.69.0";
 
 pub const list = @import("list.zig");
 pub const rbtree = @import("rbtree.zig");
@@ -33,6 +33,7 @@ pub const pcnet32 = @import("pcnet32.zig");
 pub const ne2k = @import("ne2k.zig");
 pub const rtl8139 = @import("rtl8139.zig");
 pub const e100 = @import("e100.zig");
+pub const rtl8139cp = @import("rtl8139cp.zig");
 pub const ncq = @import("ncq.zig");
 pub const drm = @import("drm.zig");
 pub const igmp = @import("igmp.zig");
