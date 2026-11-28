@@ -496,6 +496,8 @@ framebuffer) и `serial.puts()`. `printk` по-прежнему пишет то�
 
 54. Срез 0.71.0: `src/virtio_rng.zig` переносит virtio-rng (device ID 4): feature gating, inbuf-дескриптор, clamp/copy `used.len` и re-arm. Boot-проба `-Dvirtio-rng-probe=true` печатает `ziglinux: virtio-rng: ok probe=ok feat=ok req=ok bytes=ok errno=0`. Матрица 0.71.0: загрузка 9/9 и пробы 344/344 (294/294 host-тестов).
 
+55. Срез 0.72.0: `src/virtio_balloon.zig` переносит virtio-balloon (device ID 5): feature bits, config `num_pages/actual`, PFN/inflate packing и packed stats. Boot-проба `-Dvirtio-balloon-probe=true` печатает `ziglinux: virtio-balloon: ok probe=ok feat=ok cfg=ok pfn=ok stats=ok errno=0`. Матрица 0.72.0: загрузка 9/9 и пробы 352/352 (299/299 host-тестов).
+
 ## Что осталось подключить
 
 1. DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent

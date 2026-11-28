@@ -658,12 +658,17 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     mac=ok tx=ok rx=ok irq=ok mcast=ok errno=0`; матрица 0.70.0 — загрузка 9/9
     и пробы 336/336 (290/290 host-тестов).
 62. **Этап 61 (готово):** virtio-rng. `src/virtio_rng.zig` переносит device ID 4, feature gating, inbuf-дескриптор, clamp/copy `used.len` и re-arm. Boot-проба `-Dvirtio-rng-probe=true` печатает `ziglinux: virtio-rng: ok probe=ok feat=ok req=ok bytes=ok errno=0`; матрица 0.71.0 — загрузка 9/9 и пробы 344/344 (294/294 host-тестов).
-63. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
+63. **Этап 62 (готово):** virtio-balloon. `src/virtio_balloon.zig` переносит
+    device ID 5, feature bits, config `num_pages/actual`, PFN/inflate packing и
+    packed stats. Boot-проба `-Dvirtio-balloon-probe=true` печатает
+    `ziglinux: virtio-balloon: ok probe=ok feat=ok cfg=ok pfn=ok stats=ok errno=0`;
+    матрица 0.72.0 — загрузка 9/9 и пробы 352/352 (299/299 host-тестов).
+64. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
     window scale, SACK, RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6,
     дефрагментация IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast,
     pfifo_fast, NAPI, fq_codel, HTB и полные TCP-таймеры уже работают; остаются
     другие NIC и реальная сеть за пределами QEMU user net.
-64. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
+65. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
     systemd-заглушки (AF_UNIX) по `zigos/docs/systemd.md`.
 
 Каждый этап должен сохранять `zig build test` зелёным и добавлять новые

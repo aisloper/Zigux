@@ -38,6 +38,7 @@ comptime {
     _ = @import("rtl8139cp.zig");
     _ = @import("tulip.zig");
     _ = @import("virtio_rng.zig");
+    _ = @import("virtio_balloon.zig");
     _ = @import("ncq.zig");
     _ = @import("drm.zig");
     _ = @import("igmp.zig");
