@@ -492,6 +492,19 @@ pub fn kmain() noreturn {
         if (!probe.probe or !probe.mac or !probe.tx or !probe.rx or !probe.irq or !probe.mcast)
             printk.panic("tulip probe failed");
     }
+    if (build_options.virtio_rng_probe) {
+        const probe = kl.virtio_rng.probe();
+        printk.print("ziglinux: virtio-rng: {s} probe={s} feat={s} req={s} bytes={s} errno={d}\n", .{
+            probe.status,
+            if (probe.probe) "ok" else "failed",
+            if (probe.feat) "ok" else "failed",
+            if (probe.req) "ok" else "failed",
+            if (probe.bytes) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.probe or !probe.feat or !probe.req or !probe.bytes)
+            printk.panic("virtio-rng probe failed");
+    }
     if (build_options.e100_probe) {
         const probe = kl.e100.probe();
         printk.print("ziglinux: e100: {s} probe={s} mac={s} cu={s} ru={s} irq={s} eeprom={s} errno={d}\n", .{

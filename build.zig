@@ -155,6 +155,11 @@ pub fn build(b: *std.Build) void {
         "tulip-probe",
         "Exercise DEC Tulip DC21143 descriptors, rings and multicast filter",
     ) orelse false;
+    const virtio_rng_probe = b.option(
+        bool,
+        "virtio-rng-probe",
+        "Exercise virtio-rng device ID, feature gating, inbuf and used.len clamp",
+    ) orelse false;
     const rtl8139_probe = b.option(
         bool,
         "rtl8139-probe",
@@ -247,6 +252,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "rtl8139_probe", rtl8139_probe);
     options.addOption(bool, "e100_probe", e100_probe);
     options.addOption(bool, "tulip_probe", tulip_probe);
+    options.addOption(bool, "virtio_rng_probe", virtio_rng_probe);
     options.addOption(bool, "rtl8139cp_probe", rtl8139cp_probe);
     options.addOption(bool, "ncq_probe", ncq_probe);
     options.addOption(bool, "drm_probe", drm_probe);

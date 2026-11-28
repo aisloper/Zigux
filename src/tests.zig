@@ -37,6 +37,7 @@ comptime {
     _ = @import("e100.zig");
     _ = @import("rtl8139cp.zig");
     _ = @import("tulip.zig");
+    _ = @import("virtio_rng.zig");
     _ = @import("ncq.zig");
     _ = @import("drm.zig");
     _ = @import("igmp.zig");
