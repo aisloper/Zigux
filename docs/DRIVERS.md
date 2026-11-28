@@ -498,6 +498,8 @@ framebuffer) и `serial.puts()`. `printk` по-прежнему пишет то�
 
 55. Срез 0.72.0: `src/virtio_balloon.zig` переносит virtio-balloon (device ID 5): feature bits, config `num_pages/actual`, PFN/inflate packing и packed stats. Boot-проба `-Dvirtio-balloon-probe=true` печатает `ziglinux: virtio-balloon: ok probe=ok feat=ok cfg=ok pfn=ok stats=ok errno=0`. Матрица 0.72.0: загрузка 9/9 и пробы 352/352 (299/299 host-тестов).
 
+56. Срез 0.73.0: `src/virtio_input.zig` переносит virtio-input (device ID 18): config select header, devids/absInfo, 8-байтовый event/status и EVENT bitmap. Boot-проба `-Dvirtio-input-probe=true` печатает `ziglinux: virtio-input: ok probe=ok feat=ok cfg=ok evt=ok bits=ok errno=0`. Матрица 0.73.0: загрузка 9/9 и пробы 360/360 (304/304 host-тестов).
+
 ## Что осталось подключить
 
 1. DRM-драйверы GPU (базовое DRM-ядро уже реализовано); extent

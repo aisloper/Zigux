@@ -663,12 +663,13 @@ COW-фолтов родитель печатает `P`, ребёнок — `C`. 
     packed stats. Boot-проба `-Dvirtio-balloon-probe=true` печатает
     `ziglinux: virtio-balloon: ok probe=ok feat=ok cfg=ok pfn=ok stats=ok errno=0`;
     матрица 0.72.0 — загрузка 9/9 и пробы 352/352 (299/299 host-тестов).
-64. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
+64. **Этап 63 (готово):** virtio-input. `src/virtio_input.zig` переносит device ID 18, config select header, devids/absInfo, 8-байтовый event/status и EVENT bitmap. Boot-проба `-Dvirtio-input-probe=true` печатает `ziglinux: virtio-input: ok probe=ok feat=ok cfg=ok evt=ok bits=ok errno=0`; матрица 0.73.0 — загрузка 9/9 и пробы 360/360 (304/304 host-тестов).
+65. **Сеть:** netdev/FIB, virtio-net и Intel PRO/1000 (e1000), Reno, CUBIC,
     window scale, SACK, RTO, ICMPv6 echo, базовый NDP, MLD/RA, IGMPv3, TCPv6,
     дефрагментация IPv4/IPv6, AF_UNIX, netlink, promiscuous/multicast,
     pfifo_fast, NAPI, fq_codel, HTB и полные TCP-таймеры уже работают; остаются
     другие NIC и реальная сеть за пределами QEMU user net.
-65. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
+66. **Отладка/совместимость:** `strace`-совместимость, busybox/Alpine,
     systemd-заглушки (AF_UNIX) по `zigos/docs/systemd.md`.
 
 Каждый этап должен сохранять `zig build test` зелёным и добавлять новые

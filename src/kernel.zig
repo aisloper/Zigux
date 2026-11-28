@@ -2,7 +2,7 @@
 //! Библиотека без libc: подсистемы тестируются host-ом и подключены к UEFI-входу.
 pub const version_major: u32 = 7;
 pub const version_minor: u32 = 3;
-pub const port_version: []const u8 = "0.72.0";
+pub const port_version: []const u8 = "0.73.0";
 
 pub const list = @import("list.zig");
 pub const rbtree = @import("rbtree.zig");
@@ -37,6 +37,7 @@ pub const rtl8139cp = @import("rtl8139cp.zig");
 pub const tulip = @import("tulip.zig");
 pub const virtio_rng = @import("virtio_rng.zig");
 pub const virtio_balloon = @import("virtio_balloon.zig");
+pub const virtio_input = @import("virtio_input.zig");
 pub const ncq = @import("ncq.zig");
 pub const drm = @import("drm.zig");
 pub const igmp = @import("igmp.zig");

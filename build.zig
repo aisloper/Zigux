@@ -165,6 +165,11 @@ pub fn build(b: *std.Build) void {
         "virtio-balloon-probe",
         "Exercise virtio-balloon features, config, PFN packing and stats",
     ) orelse false;
+    const virtio_input_probe = b.option(
+        bool,
+        "virtio-input-probe",
+        "Exercise virtio-input config, devids, absInfo, event and bitmap",
+    ) orelse false;
     const rtl8139_probe = b.option(
         bool,
         "rtl8139-probe",
@@ -259,6 +264,7 @@ pub fn build(b: *std.Build) void {
     options.addOption(bool, "tulip_probe", tulip_probe);
     options.addOption(bool, "virtio_rng_probe", virtio_rng_probe);
     options.addOption(bool, "virtio_balloon_probe", virtio_balloon_probe);
+    options.addOption(bool, "virtio_input_probe", virtio_input_probe);
     options.addOption(bool, "rtl8139cp_probe", rtl8139cp_probe);
     options.addOption(bool, "ncq_probe", ncq_probe);
     options.addOption(bool, "drm_probe", drm_probe);

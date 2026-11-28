@@ -519,6 +519,20 @@ pub fn kmain() noreturn {
         if (!probe.probe or !probe.feat or !probe.cfg or !probe.pfn or !probe.stats)
             printk.panic("virtio-balloon probe failed");
     }
+    if (build_options.virtio_input_probe) {
+        const probe = kl.virtio_input.probe();
+        printk.print("ziglinux: virtio-input: {s} probe={s} feat={s} cfg={s} evt={s} bits={s} errno={d}\n", .{
+            probe.status,
+            if (probe.probe) "ok" else "failed",
+            if (probe.feat) "ok" else "failed",
+            if (probe.cfg) "ok" else "failed",
+            if (probe.evt) "ok" else "failed",
+            if (probe.bits) "ok" else "failed",
+            probe.errno,
+        });
+        if (!probe.probe or !probe.feat or !probe.cfg or !probe.evt or !probe.bits)
+            printk.panic("virtio-input probe failed");
+    }
     if (build_options.e100_probe) {
         const probe = kl.e100.probe();
         printk.print("ziglinux: e100: {s} probe={s} mac={s} cu={s} ru={s} irq={s} eeprom={s} errno={d}\n", .{
